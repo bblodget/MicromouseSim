@@ -1,0 +1,55 @@
+<html>
+
+<head>
+	<title>Ryan's First webpage</title>
+
+	<style type="text/css">
+		canvas#maze {border : inset}
+	</style>
+
+
+</head>
+
+
+<body>
+
+<h1>
+Hello. This is Ryan first webpage.
+</h1>
+
+<h2>Here is a maze</h2>
+
+<canvas id="maze" width="512" height="512"> </canvas>
+
+<p>
+
+<button type="button" onclick="mouse.left()">Left</button>
+<button type="button" onclick="mouse.fwd()">Forward</button>
+<button type="button" onclick="mouse.right()">Right</button>
+
+<p>
+
+<button type="button" onclick="alert(mouse.lookLeft())">Look Left</button>
+<button type="button" onclick="alert(mouse.lookForward())">Look Forward</button>
+<button type="button" onclick="alert(mouse.lookRight())">Look Right</button>
+<button type="button" onclick="alert(mouse.lookBack())">Look Back</button>
+
+<p>
+
+<button type="button" onclick="mouse.start()">Start</button>
+<button type="button" onclick="mouse.stop()">Stop</button>
+<button type="button" onclick="mouse.step()">Step</button>
+
+</body>
+
+<script src="maze.js"> </script>
+<script src="driver.js"> </script>
+
+<script>
+	mouse.newMaze();
+	mouse.load(driver);
+</script>
+
+
+
+</html>
