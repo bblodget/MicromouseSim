@@ -101,17 +101,7 @@ mouse.newMaze = function(ss_button) {
 
 	// init mouse starting mostion
 	// bottom left square
-	cMouseX = 0;
-	cMouseY = cHeight - 1;
-	mouseDir = "N";
-	pMouseX = cell2px();
-	pMouseY = cell2py();
-	tpMouseX = pMouseX;
-	tpMouseY = pMouseY;
-	aMouseDir = head2angle();
-	taMouseDir = head2angle();
-	turnDir = "N";
-	stepMode = false;
+	setHomePosition();
 
 	// compute mouse radius
 	if (pCellWidth > pCellHeight) {
@@ -381,19 +371,34 @@ if (typeof mouse.home !== 'function') {
 mouse.home = function() {
 	mouse.stop();
 	eraseMouse();
-	cMouseX = 0;
-	cMouseY = cHeight - 1;
-	mouseDir = "N";
-	pMouseX = cell2px();
-	pMouseY = cell2py();
-	tpMouseX = pMouseX;
-	tpMouseY = pMouseY;
-	aMouseDir = head2angle();
-	taMouseDir = head2angle();
-	turnDir = "N";
-	stepMode = true;
+	setHomePosition();
 	clearTimer();
 	drawMouse();
+};
+}
+
+if (typeof mouse.isHome !== 'function') {
+mouse.isHome = function() {
+	if (cMouseX === 0 &&
+		cMouseY === 0 &&
+		mouseDir === "E") {
+
+		return true;
+	} else {
+		return false;
+	}
+};
+}
+
+if (typeof mouse.isGoal !== 'function') {
+mouse.isGoal = function() {
+   if ((cMouseX === 7 || cMouseX === 8) &&
+       (cMouseY === 7 || cMouseY === 8)) {
+
+		return true;
+	} else {
+		return false;
+	}
 };
 }
 
@@ -673,6 +678,23 @@ function head2angle() {
 		case "W" : return 180;
 	}
 	return 0;
+}
+
+/* Home position is the upper left cell.
+ * This cell is (0,0)
+ */
+function setHomePosition() {
+	cMouseX = 0;
+	cMouseY = 0; // cHeight - 1;
+	mouseDir = "E";
+	pMouseX = cell2px();
+	pMouseY = cell2py();
+	tpMouseX = pMouseX;
+	tpMouseY = pMouseY;
+	aMouseDir = head2angle();
+	taMouseDir = head2angle();
+	turnDir = "E";
+	stepMode = false;
 }
 
 }());
