@@ -64,6 +64,8 @@ var timer_id;	// id of the running timer.
 
 var stepMode;	// true if we are in stepping mode.
 
+var ssButton;	// the start stop button
+
 // constants
 var turnAmount = 10;	// speed at which the mouse turns
 var incAmount = 5;		// speed at which the mouse move
@@ -77,9 +79,12 @@ var incAmount = 5;		// speed at which the mouse move
 
 // Creates a new maze and draws it to the
 // canvas with the Id=maze
+// ss_button: jQuery start/stop button
 if (typeof mouse.newMaze !== 'function') {
-mouse.newMaze = function() {
-	running = false;
+mouse.newMaze = function(ss_button) {
+	ssButton = ss_button;
+	setRunning(false);
+
 
 	// default maze size is 16x16 cells
 	cWidth = 16;	
@@ -327,7 +332,7 @@ mouse.start = function() {
 	stepMode = false;
 	if (driver && !running) {
 		timer_id = setInterval(update,20);
-		running = true;
+		setRunning(true);
 	}
 };
 }
@@ -343,7 +348,7 @@ mouse.step = function() {
 	stepMode = true;
 	if (driver && !running) {
 		timer_id = setInterval(update,20);
-		running = true;
+		setRunning(true);
 	}
 };
 }
@@ -547,7 +552,18 @@ function drawMouse() {
 function clearTimer() {
 	if (running && timer_id) {
 		clearInterval(timer_id);
+		setRunning(false);
+	}
+}
+
+function setRunning(isRunning) {
+	if (isRunning) {
+		running = true;
+		ssButton.html('Stop');
+
+	} else {
 		running = false;
+		ssButton.html('Start');
 	}
 }
 

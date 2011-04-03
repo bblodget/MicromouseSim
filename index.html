@@ -18,9 +18,9 @@
 <canvas id="maze" width="512" height="512"> </canvas>
 
 <div id="maze_controls_div">
-<button type="button" onclick="mouse.start()">Start</button>
-<button type="button" onclick="mouse.stop()">Stop</button>
-<button type="button" onclick="mouse.step()">Step</button>
+<button id = "home" type="button">Home</button>
+<button id = "start_stop" type="button">Start</button>
+<button id = "step" type="button">Step</button>
 </div>
 
 </div>
@@ -29,10 +29,20 @@
 <h3>Mouse Algorithm</h3>
 <form>
 <textarea id="driver_code" rows=30> 
-
 driver = {};
 
 driver.next = function() {
+   var x = mouse.x();
+   var y = mouse.y();
+
+   if ((x === 7 || x === 8) &&
+       (y === 7 || y === 8)) {
+
+      alert("Goal Reached!");
+      mouse.stop();
+      return;
+   }
+
    if (mouse.isOpenRight()) {
       mouse.right();
       mouse.fwd();
@@ -80,7 +90,22 @@ jQuery(function() {
 		}
 	);
 
-	mouse.newMaze();
+	$('#start_stop').click(
+		function(event) {
+			if ($('#start_stop').html() === 'Start') {
+				mouse.start();
+				$('#start_stop').html('Stop');
+
+			} else {
+				mouse.stop();
+				$('#start_stop').html('Start');
+			}
+		}
+	);
+
+	$('#step').click(mouse.step);
+
+	mouse.newMaze($('#start_stop'));
 	mouse.load(driver);
 
 	var maze_height = $("canvas#maze").height() + 8;
