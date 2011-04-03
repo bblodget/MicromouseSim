@@ -350,7 +350,25 @@ mouse.step = function() {
 
 if (typeof mouse.load !== 'function') {
 mouse.load = function(driverp) {
-	driver = driverp
+	driver = driverp;
+};
+}
+
+if (typeof mouse.x !== 'function') {
+mouse.x = function() {
+	return cMouseX;
+};
+}
+
+if (typeof mouse.y !== 'function') {
+mouse.y = function() {
+	return cMouseY;
+};
+}
+
+if (typeof mouse.heading !== 'function') {
+mouse.heading = function() {
+	return mouseDir;
 };
 }
 
