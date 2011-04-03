@@ -6,13 +6,13 @@ canvas#maze {
 }
 
 #maze_div {
-	border:4px solid#dfd;
+	// border:4px solid#dfd;
 	float:left;
 	width: 48%
 }
 
 #driver_div {
-	border:4px solid#dfd;
+	// border:4px solid#dfd;
 	float:right;
 	width: 48%;
 }
@@ -25,6 +25,8 @@ canvas#maze {
 
 #controls_div {
 	float:none;
+	text-align: center;
+	padding: 20px;
 }
 
 

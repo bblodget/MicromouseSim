@@ -62,6 +62,8 @@ var driver; 	// user code that drives the mouse
 var running;	// boolean. True if mouse is running
 var timer_id;	// id of the running timer.
 
+var stepMode;	// true if we are in stepping mode.
+
 // constants
 var turnAmount = 10;	// speed at which the mouse turns
 var incAmount = 5;		// speed at which the mouse move
@@ -104,6 +106,7 @@ mouse.newMaze = function() {
 	aMouseDir = head2angle();
 	taMouseDir = head2angle();
 	turnDir = "N";
+	stepMode = false;
 
 	// compute mouse radius
 	if (pCellWidth > pCellHeight) {
@@ -321,6 +324,7 @@ mouse.lookBack = function() {
 
 if (typeof mouse.start !== 'function') {
 mouse.start = function() {
+	stepMode = false;
 	if (driver && !running) {
 		timer_id = setInterval(update,20);
 		running = true;
@@ -330,17 +334,17 @@ mouse.start = function() {
 
 if (typeof mouse.stop !== 'function') {
 mouse.stop = function() {
-	if (running && timer_id) {
-		clearInterval(timer_id);
-		running = false;
-	}
+	stepMode = true;
 };
 }
 
 if (typeof mouse.step !== 'function') {
 mouse.step = function() {
-	mouse.stop();
-	driver.next();
+	stepMode = true;
+	if (driver && !running) {
+		timer_id = setInterval(update,20);
+		running = true;
+	}
 };
 }
 
@@ -522,6 +526,13 @@ function drawMouse() {
 	ctx.stroke();
 }
 
+function clearTimer() {
+	if (running && timer_id) {
+		clearInterval(timer_id);
+		running = false;
+	}
+}
+
 function update() {
 	var dirDiff;
 	var xDiff;
@@ -532,8 +543,14 @@ function update() {
 	if (pMouseX === tpMouseX &&
 		pMouseY === tpMouseY &&
 		aMouseDir === taMouseDir) {
-		
+
 		driver.next();
+
+		if (stepMode) {
+			clearTimer();
+			return;
+		}
+
 	}
 
 	eraseMouse();

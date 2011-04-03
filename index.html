@@ -14,11 +14,19 @@
 
 
 <div id="maze_div">
+<h3>Maze</h3>
 <canvas id="maze" width="512" height="512"> </canvas>
+
+<div id="controls_div">
+<button type="button" onclick="mouse.start()">Start</button>
+<button type="button" onclick="mouse.stop()">Stop</button>
+<button type="button" onclick="mouse.step()">Step</button>
+</div>
+
 </div>
 
 <div id="driver_div">
-
+<h3>Mouse Algorithm</h3>
 <form>
 <textarea id="driver_code" rows=30> 
 
@@ -41,28 +49,6 @@ driver.next = function() {
 
 </div>
 
-<!--
-<div id="controls_div">
-
-<button type="button" onclick="mouse.left()">Left</button>
-<button type="button" onclick="mouse.fwd()">Forward</button>
-<button type="button" onclick="mouse.right()">Right</button>
-
-<p>
-
-<button type="button" onclick="alert(mouse.lookLeft())">Look Left</button>
-<button type="button" onclick="alert(mouse.lookForward())">Look Forward</button>
-<button type="button" onclick="alert(mouse.lookRight())">Look Right</button>
-<button type="button" onclick="alert(mouse.lookBack())">Look Back</button>
-
-<p>
-
-<button type="button" onclick="mouse.start()">Start</button>
-<button type="button" onclick="mouse.stop()">Stop</button>
-<button type="button" onclick="mouse.step()">Step</button>
-
-</div>
--->
 
 
 </body>
@@ -84,7 +70,7 @@ jQuery(function() {
 	mouse.newMaze();
 	mouse.load(driver);
 
-	var maze_height = $("canvas#maze").height();
+	var maze_height = $("canvas#maze").height() + 8;
 	console.log("maze_height: " + maze_height);
 	$("#driver_div").height(maze_height);
 });
