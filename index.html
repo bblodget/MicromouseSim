@@ -33,10 +33,10 @@
 driver = {};
 
 driver.next = function() {
-   if (mouse.lookRight()) {
+   if (mouse.isOpenRight()) {
       mouse.right();
       mouse.fwd();
-   } else if (mouse.lookForward()) {
+   } else if (mouse.isOpenFwd()) {
       mouse.fwd();
    } else {
       mouse.left();

@@ -1,14 +1,14 @@
 driver = {};
 
 driver.next = function() {
-	if (mouse.lookRight()) {
-		mouse.right();
-		mouse.fwd();
-	} else if (mouse.lookForward()) {
-		mouse.fwd();
-	} else {
-		mouse.left();
-		mouse.fwd();
-	}
+   if (mouse.isOpenRight()) {
+      mouse.right();
+      mouse.fwd();
+   } else if (mouse.isOpenFwd()) {
+      mouse.fwd();
+   } else {
+      mouse.left();
+      mouse.fwd();
+   }
 }
 

@@ -202,8 +202,8 @@ mouse.left = function(turns) {
 };
 }
 
-if (typeof mouse.lookLeft !== 'function') {
-mouse.lookLeft = function() {
+if (typeof mouse.isOpenLeft !== 'function') {
+mouse.isOpenLeft = function() {
 	var goodDir = maze[cMouseY][cMouseX];
 
 		switch (mouseDir) {
@@ -232,8 +232,8 @@ mouse.lookLeft = function() {
 };
 }
 
-if (typeof mouse.lookRight !== 'function') {
-mouse.lookRight = function() {
+if (typeof mouse.isOpenRight !== 'function') {
+mouse.isOpenRight = function() {
 	var goodDir = maze[cMouseY][cMouseX];
 
 		switch (mouseDir) {
@@ -262,8 +262,8 @@ mouse.lookRight = function() {
 };
 }
 
-if (typeof mouse.lookForward !== 'function') {
-mouse.lookForward = function() {
+if (typeof mouse.isOpenFwd !== 'function') {
+mouse.isOpenFwd = function() {
 	var goodDir = maze[cMouseY][cMouseX];
 
 		switch (mouseDir) {
@@ -292,8 +292,8 @@ mouse.lookForward = function() {
 };
 }
 
-if (typeof mouse.lookBack !== 'function') {
-mouse.lookBack = function() {
+if (typeof mouse.isOpenBack !== 'function') {
+mouse.isOpenBack = function() {
 	var goodDir = maze[cMouseY][cMouseX];
 
 		switch (mouseDir) {
