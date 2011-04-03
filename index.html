@@ -17,7 +17,7 @@
 <h3>Maze</h3>
 <canvas id="maze" width="512" height="512"> </canvas>
 
-<div id="controls_div">
+<div id="maze_controls_div">
 <button type="button" onclick="mouse.start()">Start</button>
 <button type="button" onclick="mouse.stop()">Stop</button>
 <button type="button" onclick="mouse.step()">Step</button>
@@ -33,18 +33,23 @@
 driver = {};
 
 driver.next = function() {
-	if (mouse.lookRight()) {
-		mouse.right();
-		mouse.fwd();
-	} else if (mouse.lookForward()) {
-		mouse.fwd();
-	} else {
-		mouse.left();
-		mouse.fwd();
-	}
+   if (mouse.lookRight()) {
+      mouse.right();
+      mouse.fwd();
+   } else if (mouse.lookForward()) {
+      mouse.fwd();
+   } else {
+      mouse.left();
+      mouse.fwd();
+   }
 }
 
 </textarea>
+
+<div id="code_controls_div">
+<button id="download" type="button" disabled="disabled">Download to mouse</button>
+</div>
+
 </form>
 
 </div>
@@ -60,19 +65,28 @@ driver.next = function() {
 <script type="text/javascript">
 jQuery(function() {
 
-	/*
-	var maze_width = document.width * .60;
-	$("canvas#maze").attr({
-		width: maze_width,
-		height: maze_width
-	});
-	*/
+	$('#driver_code').change(
+		function(event) {
+			$("#download").attr("disabled",false);
+		}
+	);
+
+	$('#download').click(
+		function(event) {
+			var code = $("#driver_code").val();
+			jQuery.globalEval(code);
+			mouse.load(driver);
+			$("#download").attr("disabled",true);
+		}
+	);
+
 	mouse.newMaze();
 	mouse.load(driver);
 
 	var maze_height = $("canvas#maze").height() + 8;
 	console.log("maze_height: " + maze_height);
 	$("#driver_div").height(maze_height);
+
 });
 </script>
 

@@ -23,7 +23,13 @@ canvas#maze {
 }
 
 
-#controls_div {
+#maze_controls_div {
+	float:none;
+	text-align: center;
+	padding: 20px;
+}
+
+#code_controls_div {
 	float:none;
 	text-align: center;
 	padding: 20px;
