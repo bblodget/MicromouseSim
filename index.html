@@ -1,27 +1,48 @@
 <html>
 
 <head>
-	<title>Ryan's First webpage</title>
+	<title>Micromouse Simulator</title>
 
-	<style type="text/css">
-		canvas#maze {border : inset}
-	</style>
-
-
+	<link rel="stylesheet" href="main.css" type="text/css">
 </head>
 
 
 <body>
 
-<h1>
-Hello. This is Ryan first webpage.
-</h1>
 
-<h2>Here is a maze</h2>
+<h2>Micromouse Simulator</h2>
 
+
+<div id="maze_div">
 <canvas id="maze" width="512" height="512"> </canvas>
+</div>
 
-<p>
+<div id="driver_div">
+
+<form>
+<textarea id="driver_code" rows=30> 
+
+driver = {};
+
+driver.next = function() {
+	if (mouse.lookRight()) {
+		mouse.right();
+		mouse.fwd();
+	} else if (mouse.lookForward()) {
+		mouse.fwd();
+	} else {
+		mouse.left();
+		mouse.fwd();
+	}
+}
+
+</textarea>
+</form>
+
+</div>
+
+<!--
+<div id="controls_div">
 
 <button type="button" onclick="mouse.left()">Left</button>
 <button type="button" onclick="mouse.fwd()">Forward</button>
@@ -40,14 +61,33 @@ Hello. This is Ryan first webpage.
 <button type="button" onclick="mouse.stop()">Stop</button>
 <button type="button" onclick="mouse.step()">Step</button>
 
+</div>
+-->
+
+
 </body>
 
-<script src="maze.js"> </script>
-<script src="driver.js"> </script>
+<script type="text/javascript" src="jquery-1.5.2.min.js"></script>
+<script type="text/javascript" src="maze.js"></script>
+<script type="text/javascript" src="driver.js"></script>
 
-<script>
+<script type="text/javascript">
+jQuery(function() {
+
+	/*
+	var maze_width = document.width * .60;
+	$("canvas#maze").attr({
+		width: maze_width,
+		height: maze_width
+	});
+	*/
 	mouse.newMaze();
 	mouse.load(driver);
+
+	var maze_height = $("canvas#maze").height();
+	console.log("maze_height: " + maze_height);
+	$("#driver_div").height(maze_height);
+});
 </script>
 
 
