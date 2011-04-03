@@ -377,6 +377,26 @@ mouse.heading = function() {
 };
 }
 
+if (typeof mouse.home !== 'function') {
+mouse.home = function() {
+	mouse.stop();
+	eraseMouse();
+	cMouseX = 0;
+	cMouseY = cHeight - 1;
+	mouseDir = "N";
+	pMouseX = cell2px();
+	pMouseY = cell2py();
+	tpMouseX = pMouseX;
+	tpMouseY = pMouseY;
+	aMouseDir = head2angle();
+	taMouseDir = head2angle();
+	turnDir = "N";
+	stepMode = true;
+	clearTimer();
+	drawMouse();
+};
+}
+
 /*
  ****************************************************
  * Private Functions
