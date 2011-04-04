@@ -117,7 +117,7 @@
 </textarea>
 
 <div id="code_controls_div">
-<button id="download" type="button">Download to mouse</button>
+<button id="download" type="button">Download and Reset Mouse</button>
 </div>
 
 </form>
@@ -137,7 +137,7 @@ jQuery(function() {
 
 	$('#driver_code').change(
 		function(event) {
-			$("#download").attr("disabled",false);
+			$("#download").html("*Download and Reset Mouse");
 		}
 	);
 
@@ -146,8 +146,7 @@ jQuery(function() {
 			var code = $("#driver_code").val();
 			jQuery.globalEval(code);
 			mouse.loadDriver(driver);
-			mouse.home();
-			// $("#download").attr("disabled",true);
+			$("#download").html("Download and Reset Mouse");
 		}
 	);
 
@@ -176,7 +175,8 @@ jQuery(function() {
 				$('#driver_sel option:selected').val() + ".js";
 			$('#driver_code').load(template_file);
 
-			mouse.loadDriver(driver);
+			// mouse.loadDriver(driver);
+			$("#download").html("*Download and Reset Mouse");
 		}
 	);
 

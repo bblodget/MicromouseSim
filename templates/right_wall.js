@@ -1,5 +1,18 @@
+// Right Wall Following
+
+// clear the driver object.
 driver = {};
 
+// gets called 1 time when the code is downloaded
+// to the mouse.
+driver.load = function() {
+      // Switches to a maze that can be solved
+      // using wall following.
+      mouse.loadMaze("91japa1");
+}
+
+// Figure out next move.
+// Gets called each iteration of the simulator.
 driver.next = function() {
 
    if (mouse.isGoal()) {
@@ -8,6 +21,7 @@ driver.next = function() {
       return;
    }
 
+   // priority: right, fwd, left	
    if (mouse.isOpenRight()) {
       mouse.right();
       mouse.fwd();
@@ -18,4 +32,5 @@ driver.next = function() {
       mouse.fwd();
    }
 }
+
 

@@ -344,6 +344,10 @@ mouse.step = function() {
 if (typeof mouse.loadDriver !== 'function') {
 mouse.loadDriver = function(driverp) {
 	driver = driverp;
+	if (driver.load) {
+		driver.load();
+	}
+	mouse.home();
 };
 }
 

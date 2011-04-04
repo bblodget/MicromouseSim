@@ -1,13 +1,19 @@
+// Left Wall Following
+
+// clear the driver object.
 driver = {};
 
-driver.next = function() {
-   if (mouse.isHome()) {
-      // switches to a maze that can be solved
-      // using left wall following
-      // comment out next line if you want to
-      // use a different maze.
+// gets called 1 time when the code is downloaded
+// to the mouse.
+driver.load = function() {
+      // Switches to a maze that can be solved
+      // using wall following.
       mouse.loadMaze("91japa1");
-   }
+}
+
+// Figure out next move.
+// Gets called each iteration of the simulator.
+driver.next = function() {
 
    if (mouse.isGoal()) {
       alert("Goal Reached!");
@@ -15,6 +21,7 @@ driver.next = function() {
       return;
    }
 
+   // priority: left, fwd, right	
    if (mouse.isOpenLeft()) {
       mouse.left();
       mouse.fwd();
