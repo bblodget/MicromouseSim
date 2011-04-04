@@ -624,20 +624,20 @@ function head2angle() {
 	return 0;
 }
 
-/* Home position is the upper left cell.
- * This cell is (0,0)
+/* Home position is the lower left cell.
+ * This cell is (0,15)
  */
 function setHomePosition() {
 	cMouseX = 0;
-	cMouseY = 0; // cHeight - 1;
-	mouseDir = "E";
+	cMouseY = cHeight - 1;
+	mouseDir = "N";
 	pMouseX = cell2px();
 	pMouseY = cell2py();
 	tpMouseX = pMouseX;
 	tpMouseY = pMouseY;
 	aMouseDir = head2angle();
 	taMouseDir = head2angle();
-	turnDir = "E";
+	turnDir = "N";
 	stepMode = false;
 }
 
