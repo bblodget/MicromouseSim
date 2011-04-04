@@ -165,7 +165,9 @@ jQuery(function() {
 	$('#step').click(mouse.step);
 	$('#home').click(mouse.home);
 
-	mouse.newMaze($('#start_stop'));
+	var maze_file = "mazes_json/00japan.json";
+
+	mouse.newMaze($('#start_stop'),maze_file);
 	mouse.loadDriver(driver);
 
 	var maze_height = $("canvas#maze").height() + 8;

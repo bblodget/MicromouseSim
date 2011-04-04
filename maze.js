@@ -80,8 +80,9 @@ var incAmount = 5;		// speed at which the mouse move
 // Creates a new maze and draws it to the
 // canvas with the Id=maze
 // ss_button: jQuery start/stop button
+// maze_file: string of json maze file.
 if (typeof mouse.newMaze !== 'function') {
-mouse.newMaze = function(ss_button) {
+mouse.newMaze = function(ss_button,maze_file) {
 	ssButton = ss_button;
 	setRunning(false);
 
@@ -110,11 +111,7 @@ mouse.newMaze = function(ss_button) {
 		mRadius = Math.floor(pCellWidth/2) - 5;
 	}
 
-	//initMaze();
-	mouse.loadMaze("mazes_json/00japan.json");
-	//drawMaze();
-	//drawMouse();
-
+	mouse.loadMaze(maze_file);
 };
 }
 
