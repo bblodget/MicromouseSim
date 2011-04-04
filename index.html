@@ -166,9 +166,7 @@ jQuery(function() {
 
 	$('#maze_sel').change(
 		function(event) {
-			var maze_json = "mazes_json/" + 
-				$('#maze_sel option:selected').text() + ".json";
-			mouse.loadMaze(maze_json);
+			mouse.loadMaze($('#maze_sel option:selected').text());
 		}
 	);
 
@@ -185,19 +183,19 @@ jQuery(function() {
 	$('#step').click(mouse.step);
 	$('#home').click(mouse.home);
 
-	// select random maze
-	var last_opt = $('#maze_sel option:last').val();
-	var rand_maze = Math.floor(Math.random()*last_opt+1)
-	$("#maze_sel").val(rand_maze).attr('selected','selected');
-	var maze_file = "mazes_json/" + 
-		$('#maze_sel option:selected').text() + ".json";
-
 	// load driver code from template
 	var template_file = "templates/" + 
 		$('#driver_sel option:selected').val() + ".js";
 	$('#driver_code').load(template_file);
 
-	mouse.newMaze($('#start_stop'),maze_file);
+	// select random maze
+	var last_opt = $('#maze_sel option:last').val();
+	var rand_maze = Math.floor(Math.random()*last_opt+1)
+	$("#maze_sel").val(rand_maze).attr('selected','selected');
+	var maze_sel = $('#maze_sel option:selected').text();
+
+
+	mouse.newMaze($('#start_stop'),maze_sel);
 	mouse.loadDriver(driver);
 
 	var maze_height = $("canvas#maze").height() + 8;

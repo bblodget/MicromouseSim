@@ -80,9 +80,9 @@ var incAmount = 5;		// speed at which the mouse move
 // Creates a new maze and draws it to the
 // canvas with the Id=maze
 // ss_button: jQuery start/stop button
-// maze_file: string of json maze file.
+// maze_sel: string of selected maze.
 if (typeof mouse.newMaze !== 'function') {
-mouse.newMaze = function(ss_button,maze_file) {
+mouse.newMaze = function(ss_button,maze_sel) {
 	ssButton = ss_button;
 	setRunning(false);
 
@@ -111,7 +111,7 @@ mouse.newMaze = function(ss_button,maze_file) {
 		mRadius = Math.floor(pCellWidth/2) - 5;
 	}
 
-	mouse.loadMaze(maze_file);
+	mouse.loadMaze(maze_sel);
 };
 }
 
@@ -348,7 +348,11 @@ mouse.loadDriver = function(driverp) {
 }
 
 if (typeof mouse.loadMaze !== 'function') {
-mouse.loadMaze = function(maze_json) {
+mouse.loadMaze = function(maze_sel) {
+	var maze_json = "mazes_json/" + maze_sel + ".json";
+
+	// change menu selection
+	$("#maze_sel option[text="+maze_sel+"]").attr('selected','selected');
 
 	$.getJSON(maze_json, function(json) {
 		maze = json;

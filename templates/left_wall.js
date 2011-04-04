@@ -6,7 +6,7 @@ driver.next = function() {
       // using left wall following
       // comment out next line if you want to
       // use a different maze.
-      mouse.loadMaze("mazes_json/91japa1.json");
+      mouse.loadMaze("91japa1");
    }
 
    if (mouse.isGoal()) {
