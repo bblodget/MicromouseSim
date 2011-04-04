@@ -20,42 +20,41 @@
 <div class="select">
 <label for="maze_sel">Select Maze</label>
 <select name="maze_sel" id="maze_sel">
-  <option value="00japan">00japan</option>
-  <option value="1stworld">1stworld</option>
-  <option value="80japx">80japx</option>
-  <option value="81japx">81japx</option>
-
-  <option value="82japx">82japx</option>
-  <option value="82us">82us</option>
-  <option value="83jap">82japx</option>
-  <option value="83japx">83japx</option>
-  <option value="83us">83us</option>
-  <option value="84japx">84japx</option>
-  <option value="85japx">85japx</option>
-  <option value="85usa">85usa</option>
-  <option value="86">86</option>
-  <option value="86chi">86chi</option>
-  <option value="86jap">86jap</option>
-  <option value="86japx">86japx</option>
-  <option value="87iee">87iee</option>
-  <option value="87jap">87jap</option>
-  <option value="87japx">87japx</option>
-  <option value="87sin">87sin</option>
-  <option value="87us1">87us1</option>
-  <option value="88iee">88iee</option>
-  <option value="88jap">88jap</option>
-  <option value="88japx">88japx</option>
-  <option value="88lon">88lon</option>
-  <option value="88mtl">88mtl</option>
-  <option value="88sin">88sin</option>
-  <option value="88us">88us</option>
-  <option value="89ape">89ape</option>
-  <option value="89iee">89iee</option>
-  <option value="89japa1">89japa1</option>
-  <option value="89japa2">89japa2</option>
-  <option value="89japx">89japx</option>
-  <option value="89lon">89lon</option>
-  <option value="89lonq">89lonq</option>
+  <option value="1">00japan</option>
+  <option value="2">1stworld</option>
+  <option value="3">80japx</option>
+  <option value="4">81japx</option>
+  <option value="5">82japx</option>
+  <option value="6">82us</option>
+  <option value="7">82japx</option>
+  <option value="8">83japx</option>
+  <option value="9">83us</option>
+  <option value="10">84japx</option>
+  <option value="11">85japx</option>
+  <option value="12">85usa</option>
+  <option value="13">86</option>
+  <option value="14">86chi</option>
+  <option value="15">86jap</option>
+  <option value="16">86japx</option>
+  <option value="17">87iee</option>
+  <option value="18">87jap</option>
+  <option value="19">87japx</option>
+  <option value="20">87sin</option>
+  <option value="21">87us1</option>
+  <option value="22">88iee</option>
+  <option value="23">88jap</option>
+  <option value="24">88japx</option>
+  <option value="25">88lon</option>
+  <option value="26">88mtl</option>
+  <option value="27">88sin</option>
+  <option value="28">88us</option>
+  <option value="29">89ape</option>
+  <option value="30">89iee</option>
+  <option value="31">89japa1</option>
+  <option value="32">89japa2</option>
+  <option value="33">89japx</option>
+  <option value="34">89lon</option>
+  <option value="35">89lonq</option>
 </select>
 </div>
 
@@ -157,7 +156,7 @@ jQuery(function() {
 	$('#maze_sel').change(
 		function(event) {
 			var maze_json = "mazes_json/" + 
-				$('#maze_sel').val() + ".json";
+				$('#maze_sel option:selected').text() + ".json";
 			mouse.loadMaze(maze_json);
 		}
 	);
@@ -165,7 +164,13 @@ jQuery(function() {
 	$('#step').click(mouse.step);
 	$('#home').click(mouse.home);
 
-	var maze_file = "mazes_json/00japan.json";
+	var last_opt = $('#maze_sel option:last').val();
+	var rand_maze = Math.floor(Math.random()*last_opt+1)
+	console.log(last_opt);
+	console.log(rand_maze);
+	$("#maze_sel").val(rand_maze).attr('selected','selected');
+	var maze_file = "mazes_json/" + 
+		$('#maze_sel option:selected').text() + ".json";
 
 	mouse.newMaze($('#start_stop'),maze_file);
 	mouse.loadDriver(driver);
