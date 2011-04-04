@@ -108,39 +108,16 @@
 <div class="select">
 <label for="driver_sel">Select Template (<a href="https://github.com/bblodget/MicroMouseSim/wiki/Mouse-API">Mouse API</a>)</label>
 <select name="driver_sel" id="driver_sel">
-  <option value="fwd_back">Forward and Back</option>
-  <option value="right_wall">Right Wall Follow</option>
+  <option value="right_wall">Right Wall Follower</option>
+  <option value="left_wall">Left Wall Follower</option>
 </select>
 </div>
 
 <textarea id="driver_code" rows=30> 
-driver = {};
-
-driver.next = function() {
-   var x = mouse.x();
-   var y = mouse.y();
-
-   if (mouse.isGoal()) {
-      alert("Goal Reached!");
-      mouse.stop();
-      return;
-   }
-
-   if (mouse.isOpenRight()) {
-      mouse.right();
-      mouse.fwd();
-   } else if (mouse.isOpenFwd()) {
-      mouse.fwd();
-   } else {
-      mouse.left();
-      mouse.fwd();
-   }
-}
-
 </textarea>
 
 <div id="code_controls_div">
-<button id="download" type="button" disabled="disabled">Download to mouse</button>
+<button id="download" type="button">Download to mouse</button>
 </div>
 
 </form>
@@ -169,7 +146,8 @@ jQuery(function() {
 			var code = $("#driver_code").val();
 			jQuery.globalEval(code);
 			mouse.loadDriver(driver);
-			$("#download").attr("disabled",true);
+			mouse.home();
+			// $("#download").attr("disabled",true);
 		}
 	);
 
@@ -194,16 +172,30 @@ jQuery(function() {
 		}
 	);
 
+	$('#driver_sel').change(
+		function(event) {
+			var template_file = "templates/" + 
+				$('#driver_sel option:selected').val() + ".js";
+			$('#driver_code').load(template_file);
+
+			mouse.loadDriver(driver);
+		}
+	);
+
 	$('#step').click(mouse.step);
 	$('#home').click(mouse.home);
 
+	// select random maze
 	var last_opt = $('#maze_sel option:last').val();
 	var rand_maze = Math.floor(Math.random()*last_opt+1)
-	console.log(last_opt);
-	console.log(rand_maze);
 	$("#maze_sel").val(rand_maze).attr('selected','selected');
 	var maze_file = "mazes_json/" + 
 		$('#maze_sel option:selected').text() + ".json";
+
+	// load driver code from template
+	var template_file = "templates/" + 
+		$('#driver_sel option:selected').val() + ".js";
+	$('#driver_code').load(template_file);
 
 	mouse.newMaze($('#start_stop'),maze_file);
 	mouse.loadDriver(driver);

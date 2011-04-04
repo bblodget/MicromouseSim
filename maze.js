@@ -390,8 +390,8 @@ mouse.home = function() {
 if (typeof mouse.isHome !== 'function') {
 mouse.isHome = function() {
 	if (cMouseX === 0 &&
-		cMouseY === 0 &&
-		mouseDir === "E") {
+		cMouseY === 15 &&
+		mouseDir === "N") {
 
 		return true;
 	} else {
