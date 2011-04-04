@@ -158,10 +158,7 @@ jQuery(function() {
 		function(event) {
 			var maze_json = "mazes_json/" + 
 				$('#maze_sel').val() + ".json";
-			$.getJSON(maze_json, function(json) {
-				mouse.loadMaze(json);
-				//alert("maze_json: " + maze_json);
-			 });
+			mouse.loadMaze(maze_json);
 		}
 	);
 
@@ -172,7 +169,7 @@ jQuery(function() {
 	mouse.loadDriver(driver);
 
 	var maze_height = $("canvas#maze").height() + 8;
-	console.log("maze_height: " + maze_height);
+	// console.log("maze_height: " + maze_height);
 	$("#driver_div").height(maze_height);
 
 });

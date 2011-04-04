@@ -110,9 +110,10 @@ mouse.newMaze = function(ss_button) {
 		mRadius = Math.floor(pCellWidth/2) - 5;
 	}
 
-	initMaze();
-	drawMaze();
-	drawMouse();
+	//initMaze();
+	mouse.loadMaze("mazes_json/00japan.json");
+	//drawMaze();
+	//drawMouse();
 
 };
 }
@@ -350,10 +351,14 @@ mouse.loadDriver = function(driverp) {
 }
 
 if (typeof mouse.loadMaze !== 'function') {
-mouse.loadMaze = function(mazep) {
-	maze = mazep;
-	drawMaze();
-	drawMouse();
+mouse.loadMaze = function(maze_json) {
+
+	$.getJSON(maze_json, function(json) {
+		maze = json;
+		drawMaze();
+		drawMouse();
+	});
+
 };
 }
 
