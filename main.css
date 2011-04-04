@@ -1,4 +1,10 @@
 
+.small_link {
+	font-weight: normal;
+	font-size: .5em;
+	float:right;
+}
+
 .heading {
 	font-weight: bold;
 	font-size: 20;
