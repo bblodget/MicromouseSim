@@ -343,9 +343,17 @@ mouse.step = function() {
 };
 }
 
-if (typeof mouse.load !== 'function') {
-mouse.load = function(driverp) {
+if (typeof mouse.loadDriver !== 'function') {
+mouse.loadDriver = function(driverp) {
 	driver = driverp;
+};
+}
+
+if (typeof mouse.loadMaze !== 'function') {
+mouse.loadMaze = function(mazep) {
+	maze = mazep;
+	drawMaze();
+	drawMouse();
 };
 }
 
@@ -483,6 +491,9 @@ function drawMaze() {
 	var px;
 	var py;
 	var code;
+
+	// clear canvas
+	canvas.width = canvas.width;
 
 	for (y=0;y<cHeight;y++) {
 		for (x=0;x<cWidth;x++) {

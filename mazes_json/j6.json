@@ -1,0 +1,19 @@
+[
+   ["E", "ESW", "EW", "EW", "EW", "EW", "EW", "EW", "EW", "EW", "EW", "EW", "EW", "EW", "ESW", "W", ""],
+   ["E", "NEW", "EW", "EW", "EW", "EW", "ESW", "ESW", "SW", "", "S", "", "S", "", "NS", "", ""],
+   ["E", "EW", "EW", "EW", "EW", "EW", "NSW", "NS", "NS", "ES", "NEW", "ESW", "NEW", "ESW", "NEW", "SW", ""],
+   ["ES", "ESW", "EW", "EW", "EW", "EW", "NEW", "NEW", "NW", "NS", "", "NS", "", "NS", "", "NS", ""],
+   ["NS", "NES", "EW", "EW", "EW", "EW", "EW", "EW", "W", "NE", "ESW", "NEW", "ESW", "NEW", "ESW", "NW", ""],
+   ["NE", "NEW", "EW", "EW", "EW", "EW", "ESW", "ESW", "SW", "", "NS", "", "NS", "", "NS", "", ""],
+   ["E", "EW", "EW", "EW", "EW", "EW", "NSW", "N", "N", "ES", "NEW", "ESW", "NEW", "ESW", "NEW", "SW", ""],
+   ["ES", "ESW", "ESW", "ESW", "EW", "EW", "NSW", "ES", "SW", "NS", "", "NS", "", "NS", "", "NS", ""],
+   ["NS", "NES", "NSW", "NE", "SW", "ES", "NW", "NE", "NEW", "NEW", "ESW", "NEW", "ESW", "NEW", "ESW", "NW", ""],
+   ["NES", "NSW", "NE", "SW", "NE", "NSW", "ES", "SW", "S", "", "NS", "", "NS", "", "NS", "", ""],
+   ["NS", "NES", "SW", "NE", "SW", "NES", "NW", "NES", "NSW", "ES", "NEW", "ESW", "NEW", "ESW", "NEW", "SW", ""],
+   ["NES", "NSW", "NES", "ESW", "NESW", "NW", "ES", "NSW", "NS", "NS", "", "NS", "", "NS", "", "NS", ""],
+   ["NS", "NS", "NS", "NS", "NES", "ESW", "NSW", "NS", "NS", "NE", "ESW", "NEW", "ESW", "NEW", "ESW", "NW", ""],
+   ["NES", "NSW", "NS", "NS", "NS", "NS", "NS", "NS", "NS", "", "NS", "", "NS", "", "NS", "", ""],
+   ["NS", "NS", "NS", "NS", "NS", "NS", "NS", "NS", "NS", "E", "NEW", "EW", "NEW", "ESW", "NEW", "SW", ""],
+   ["N", "NE", "NEW", "NEW", "NW", "N", "NE", "NEW", "NEW", "EW", "EW", "EW", "EW", "NW", "", "N", ""],
+   ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+]

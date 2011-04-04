@@ -1,4 +1,13 @@
 
+.heading {
+	font-weight: bold;
+	font-size: 20;
+	float:left;
+}
+
+.select {
+	float:right;
+}
 
 canvas#maze {
 	border : inset;

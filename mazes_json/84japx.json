@@ -1,0 +1,18 @@
+[
+   ["S", "ES", "EW", "ESW", "EW", "ESW", "W", "ES", "EW", "EW", "EW", "EW", "EW", "ESW", "ESW", "SW"],
+   ["NS", "NES", "SW", "NES", "EW", "NESW", "W", "NE", "EW", "EW", "EW", "EW", "SW", "NS", "NS", "NS"],
+   ["NS", "NS", "NS", "NE", "EW", "NEW", "EW", "EW", "EW", "EW", "EW", "EW", "NW", "NES", "NW", "NS"],
+   ["NES", "NSW", "NS", "ES", "EW", "ESW", "EW", "ESW", "EW", "EW", "EW", "EW", "SW", "NS", "ES", "NW"],
+   ["NS", "NS", "NS", "NES", "EW", "NESW", "EW", "NESW", "W", "ES", "ESW", "ESW", "NW", "NS", "NS", "S"],
+   ["NS", "NS", "NS", "NES", "EW", "NESW", "EW", "NEW", "W", "NS", "NS", "NS", "S", "NS", "NE", "NSW"],
+   ["NES", "NSW", "NS", "NE", "EW", "NSW", "ES", "EW", "SW", "NS", "NS", "NS", "NS", "NS", "S", "NS"],
+   ["NS", "NS", "NES", "W", "E", "NESW", "NSW", "ES", "NSW", "NES", "NESW", "NESW", "NSW", "NS", "NES", "NSW"],
+   ["NS", "NS", "NE", "ESW", "W", "N", "NS", "NE", "NW", "NS", "NS", "NS", "NS", "NS", "NS", "NS"],
+   ["NES", "NSW", "ES", "NEW", "ESW", "W", "N", "ES", "EW", "NSW", "NS", "NS", "NS", "NS", "NS", "NS"],
+   ["NS", "NS", "NES", "ESW", "NEW", "SW", "S", "NE", "EW", "NEW", "NEW", "NEW", "NSW", "NS", "NES", "NSW"],
+   ["NS", "NS", "N", "NE", "SW", "NES", "NSW", "ES", "SW", "ES", "SW", "S", "NS", "NS", "NS", "NS"],
+   ["NS", "NE", "EW", "SW", "NE", "NSW", "NES", "NSW", "NES", "NSW", "NES", "NESW", "NW", "NS", "NS", "NS"],
+   ["NES", "EW", "SW", "NS", "E", "NEW", "NW", "NE", "NW", "NE", "NW", "NE", "EW", "NW", "NE", "NSW"],
+   ["NS", "S", "NS", "NE", "EW", "EW", "ESW", "EW", "EW", "ESW", "EW", "EW", "EW", "EW", "ESW", "NSW"],
+   ["N", "NE", "NEW", "EW", "EW", "EW", "NEW", "EW", "EW", "NEW", "EW", "EW", "EW", "EW", "NW", "N"]
+]

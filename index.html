@@ -14,7 +14,19 @@
 
 
 <div id="maze_div">
-<h3>Maze</h3>
+<form>
+<span class="heading">Maze</span>
+
+<div class="select">
+<label for="maze_sel">Select Maze</label>
+<select name="maze_sel" id="maze_sel">
+  <option value="00japan">00japan</option>
+  <option value="1stworld">1stworld</option>
+  <option value="80japx">80japx</option>
+  <option value="81japx">81japx</option>
+</select>
+</div>
+
 <canvas id="maze" width="512" height="512"> </canvas>
 
 <div id="maze_controls_div">
@@ -22,12 +34,21 @@
 <button id = "start_stop" type="button">Start</button>
 <button id = "step" type="button">Step</button>
 </div>
-
+</form>
 </div>
 
 <div id="driver_div">
-<h3>Mouse Algorithm</h3>
 <form>
+<span class="heading">Mouse Algorithm</span>
+
+<div class="select">
+<label for="driver_sel">Select Template</label>
+<select name="driver_sel" id="driver_sel">
+  <option value="fwd_back">Forward and Back</option>
+  <option value="right_wall">Right Wall Follow</option>
+</select>
+</div>
+
 <textarea id="driver_code" rows=30> 
 driver = {};
 
@@ -83,7 +104,7 @@ jQuery(function() {
 		function(event) {
 			var code = $("#driver_code").val();
 			jQuery.globalEval(code);
-			mouse.load(driver);
+			mouse.loadDriver(driver);
 			$("#download").attr("disabled",true);
 		}
 	);
@@ -101,11 +122,22 @@ jQuery(function() {
 		}
 	);
 
+	$('#maze_sel').change(
+		function(event) {
+			var maze_json = "mazes_json/" + 
+				$('#maze_sel').val() + ".json";
+			$.getJSON(maze_json, function(json) {
+				mouse.loadMaze(json);
+				//alert("maze_json: " + maze_json);
+			 });
+		}
+	);
+
 	$('#step').click(mouse.step);
 	$('#home').click(mouse.home);
 
 	mouse.newMaze($('#start_stop'));
-	mouse.load(driver);
+	mouse.loadDriver(driver);
 
 	var maze_height = $("canvas#maze").height() + 8;
 	console.log("maze_height: " + maze_height);
