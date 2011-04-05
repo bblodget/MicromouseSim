@@ -45,6 +45,7 @@ var pHeight; // the height of the maze in pixels
 var pCellWidth; // width of a cell in pixels
 var pCellHeight;	// height of a cell in pixels
 var maze;		// data structure the reps the maze
+var mazeUserData;	// user data stored in the maze
 
 var cMouseX;	// mouse x pos in cells
 var cMouseY;	// mouse y pos in cells
@@ -69,6 +70,7 @@ var ssButton;	// the start stop button
 // constants
 var turnAmount = 10;	// speed at which the mouse turns
 var incAmount = 5;		// speed at which the mouse move
+var outOfBounds = 401;   // constant for out of bound values
 
 
 /*
@@ -111,6 +113,7 @@ mouse.newMaze = function(ss_button,maze_sel) {
 		mRadius = Math.floor(pCellWidth/2) - 5;
 	}
 
+	initMazeUserData();
 	mouse.loadMaze(maze_sel);
 };
 }
@@ -155,7 +158,7 @@ mouse.right = function(turns) {
 	var i;
 
 	turnDir = "R";
-	taMouseDir = taMouseDir + 90;
+	taMouseDir = taMouseDir + (90*num);
 
 	for (i=0; i<num; i++) {
 		switch (mouseDir) {
@@ -178,7 +181,7 @@ mouse.left = function(turns) {
 	var i;
 
 	turnDir = "L";
-	taMouseDir = taMouseDir - 90;
+	taMouseDir = taMouseDir - (90*num);
 
 	for (i=0; i<num; i++) {
 		switch (mouseDir) {
@@ -344,6 +347,7 @@ mouse.step = function() {
 if (typeof mouse.loadDriver !== 'function') {
 mouse.loadDriver = function(driverp) {
 	driver = driverp;
+	initMazeUserData();
 	if (driver.load) {
 		driver.load();
 	}
@@ -356,7 +360,7 @@ mouse.loadMaze = function(maze_sel) {
 	var maze_json = "mazes_json/" + maze_sel + ".json";
 
 	// change menu selection
-	$("#maze_sel option[text="+maze_sel+"]").attr('selected','selected');
+	$("#maze_sel").val(maze_sel).attr('selected','selected');
 
 	$.getJSON(maze_json, function(json) {
 		maze = json;
@@ -417,6 +421,183 @@ mouse.isGoal = function() {
 	} else {
 		return false;
 	}
+};
+}
+
+if (typeof mouse.setValue !== 'function') {
+mouse.setValue = function(x,y,value) {
+	mazeUserData[y][x] = value;
+};
+}
+
+if (typeof mouse.value !== 'function') {
+mouse.value = function(x,y) {
+	return mazeUserData;
+};
+}
+
+if (typeof mouse.setValueCurr !== 'function') {
+mouse.setValueCurr = function(value) {
+	mazeUserData[cMouseY][cMouseX] = value;
+};
+}
+
+if (typeof mouse.valueCurr !== 'function') {
+mouse.valueCurr = function() {
+	return mazeUserData[cMouseY][cMouseX];
+};
+}
+
+if (typeof mouse.valueLeft !== 'function') {
+mouse.valueLeft = function() {
+	var x=0;
+	var y=0;
+	switch (mouseDir) {
+		case "N" : y = cMouseY; x = cMouseX-1; break;
+		case "E" : y = cMouseY-1; x = cMouseX; break;
+		case "S" : y = cMouseY; x = cMouseX+1; break;
+		case "W" : y = cMouseY+1; x = cMouseX; break;
+	}
+	if (x>=0 && x<cWidth &&
+	    y>=0 && y<cHeight) {
+
+		return mazeUserData[y][x];
+	} else {
+		return outOfBounds; 
+	}
+};
+}
+
+if (typeof mouse.valueRight !== 'function') {
+mouse.valueRight = function() {
+	var x=0;
+	var y=0;
+	switch (mouseDir) {
+		case "N" : y = cMouseY; x = cMouseX+1; break;
+		case "E" : y = cMouseY+1; x = cMouseX; break;
+		case "S" : y = cMouseY; x = cMouseX-1; break;
+		case "W" : y = cMouseY-1; x = cMouseX; break;
+	}
+	if (x>=0 && x<cWidth &&
+	    y>=0 && y<cHeight) {
+
+		return mazeUserData[y][x];
+	} else {
+		return outOfBounds; 
+	}
+};
+}
+
+if (typeof mouse.valueFwd !== 'function') {
+mouse.valueFwd = function() {
+	var x=0;
+	var y=0;
+	switch (mouseDir) {
+		case "N" : y = cMouseY-1; x = cMouseX; break;
+		case "E" : y = cMouseY; x = cMouseX+1; break;
+		case "S" : y = cMouseY+1; x = cMouseX; break;
+		case "W" : y = cMouseY; x = cMouseX-1; break;
+	}
+	if (x>=0 && x<cWidth &&
+	    y>=0 && y<cHeight) {
+
+		return mazeUserData[y][x];
+	} else {
+		return outOfBounds; 
+	}
+};
+}
+
+if (typeof mouse.valueBack !== 'function') {
+mouse.valueBack = function() {
+	var x=0;
+	var y=0;
+	switch (mouseDir) {
+		case "N" : y = cMouseY+1; x = cMouseX; break;
+		case "E" : y = cMouseY; x = cMouseX-1; break;
+		case "S" : y = cMouseY-1; x = cMouseX; break;
+		case "W" : y = cMouseY; x = cMouseX+1; break;
+	}
+	if (x>=0 && x<cWidth &&
+	    y>=0 && y<cHeight) {
+
+		return mazeUserData[y][x];
+	} else {
+		return outOfBounds; 
+	}
+};
+}
+
+
+// FIXME: needs to be generalized.  Right now it is hardcoded
+// for a 16x16 maze.
+if (typeof mouse.setValueFlood !== 'function') {
+mouse.setValueFlood = function() {
+	var x, y;
+	var row_start;
+	var val;
+	var str="";
+
+	// Quad 1: top left 
+	str = "Quad 1\n";
+	row_start = 14;
+	for (y=0;y<8;y++) {
+		val = row_start;
+		for (x=0;x<8;x++) {
+			mazeUserData[y][x] = val;
+			str = str + val + " ";
+			val--;
+		}
+		row_start--;
+		str = str + "\n";
+	}
+	console.log(str);
+
+	// Quad 2: top right 
+	str = "Quad 2\n";
+	row_start = 7;
+	for (y=0;y<8;y++) {
+		val = row_start;
+		for (x=8;x<16;x++) {
+			mazeUserData[y][x] = val;
+			str = str + val + " ";
+			val++;
+		}
+		row_start--;
+		str = str + "\n";
+	}
+	console.log(str);
+
+	// Quad 3: bottom left 
+	str = "Quad 3\n";
+	row_start = 7;
+	for (y=8;y<16;y++) {
+		val = row_start;
+		for (x=0;x<8;x++) {
+			mazeUserData[y][x] = val;
+			str = str + val + " ";
+			val--;
+		}
+		row_start++;
+		str = str + "\n";
+	}
+	console.log(str);
+	
+	// Quad 4: bottom right 
+	str = "Quad 4\n";
+	row_start = 0;
+	for (y=8;y<16;y++) {
+		val = row_start;
+		for (x=8;x<16;x++) {
+			mazeUserData[y][x] = val;
+			str = str + val + " ";
+			val++;
+		}
+		row_start++;
+		str = str + "\n";
+	}
+	console.log(str);
+
 };
 }
 
@@ -647,6 +828,17 @@ function setHomePosition() {
 	taMouseDir = head2angle();
 	turnDir = "N";
 	stepMode = false;
+}
+
+function initMazeUserData() {
+	var x, y;
+	mazeUserData = [];
+	for (y=0;y<cHeight;y++) {
+		mazeUserData[y] = [];
+		for (x=0;x<cWidth;x++) {
+			mazeUserData[y][x] = 0;
+		}
+	}
 }
 
 }());
