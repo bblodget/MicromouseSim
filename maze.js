@@ -497,166 +497,166 @@ mouse.isGoal = function() {
 
 // Mouse memory functions
 
-if (typeof mouse.memSetWallLeft !== 'function') {
-mouse.memSetWallLeft = function(setWall) {
-	var walls = memMazeWall[memMouseY][memMouseX];
+if (typeof mouse.memSetPathLeft !== 'function') {
+mouse.memSetPathLeft = function(setPath) {
+	var paths = memMazeWall[memMouseY][memMouseX];
 
-	if (setWall) {
+	if (setPath) {
 		switch(memMouseDir) {
 			case "N" :
-				if (walls.indexOf("W") === -1) {
-					walls = walls + "W";
+				if (paths.indexOf("W") === -1) {
+					paths = paths + "W";
 				}
 				break;
 			case "E" :
-				if (walls.indexOf("N") === -1) {
-					walls = walls + "N";
+				if (paths.indexOf("N") === -1) {
+					paths = paths + "N";
 				}
 				break;
 			case "S" :
-				if (walls.indexOf("E") === -1) {
-					walls = walls + "E";
+				if (paths.indexOf("E") === -1) {
+					paths = paths + "E";
 				}
 				break;
 			case "W" :
-				if (walls.indexOf("S") === -1) {
-					walls = walls + "S";
+				if (paths.indexOf("S") === -1) {
+					paths = paths + "S";
 				}
 				break;
 		}
 	} else {
 		switch(memMouseDir) {
-			case "N" : walls.replace("W", ""); break;
-			case "E" : walls.replace("N", ""); break;
-			case "S" : walls.replace("E", ""); break;
-			case "W" : walls.replace("S", ""); break;
+			case "N" : paths.replace("W", ""); break;
+			case "E" : paths.replace("N", ""); break;
+			case "S" : paths.replace("E", ""); break;
+			case "W" : paths.replace("S", ""); break;
 		}
 	}
-	memMazeWall[memMouseY][memMouseX] = walls;
+	memMazeWall[memMouseY][memMouseX] = paths;
 };
 }
 
-if (typeof mouse.memSetWallRight !== 'function') {
-mouse.memSetWallRight = function(setWall) {
-	var walls = memMazeWall[memMouseY][memMouseX];
+if (typeof mouse.memSetPathRight !== 'function') {
+mouse.memSetPathRight = function(setPath) {
+	var paths = memMazeWall[memMouseY][memMouseX];
 
-	if (setWall) {
+	if (setPath) {
 		switch(memMouseDir) {
 			case "N" :
-				if (walls.indexOf("E") === -1) {
-					walls = walls + "E";
+				if (paths.indexOf("E") === -1) {
+					paths = paths + "E";
 				}
 				break;
 			case "E" :
-				if (walls.indexOf("S") === -1) {
-					walls = walls + "S";
+				if (paths.indexOf("S") === -1) {
+					paths = paths + "S";
 				}
 				break;
 			case "S" :
-				if (walls.indexOf("W") === -1) {
-					walls = walls + "W";
+				if (paths.indexOf("W") === -1) {
+					paths = paths + "W";
 				}
 				break;
 			case "W" :
-				if (walls.indexOf("N") === -1) {
-					walls = walls + "N";
+				if (paths.indexOf("N") === -1) {
+					paths = paths + "N";
 				}
 				break;
 		}
 	} else {
 		switch(memMouseDir) {
-			case "N" : walls.replace("E", ""); break;
-			case "E" : walls.replace("S", ""); break;
-			case "S" : walls.replace("W", ""); break;
-			case "W" : walls.replace("N", ""); break;
+			case "N" : paths.replace("E", ""); break;
+			case "E" : paths.replace("S", ""); break;
+			case "S" : paths.replace("W", ""); break;
+			case "W" : paths.replace("N", ""); break;
 		}
 	}
-	memMazeWall[memMouseY][memMouseX] = walls;
+	memMazeWall[memMouseY][memMouseX] = paths;
 };
 }
 
-if (typeof mouse.memSetWallFwd !== 'function') {
-mouse.memSetWallFwd = function(setWall) {
-	var walls = memMazeWall[memMouseY][memMouseX];
+if (typeof mouse.memSetPathFwd !== 'function') {
+mouse.memSetPathFwd = function(setPath) {
+	var paths = memMazeWall[memMouseY][memMouseX];
 
-	if (setWall) {
+	if (setPath) {
 		switch(memMouseDir) {
 			case "N" :
-				if (walls.indexOf("N") === -1) {
-					walls = walls + "N";
+				if (paths.indexOf("N") === -1) {
+					paths = paths + "N";
 				}
 				break;
 			case "E" :
-				if (walls.indexOf("E") === -1) {
-					walls = walls + "E";
+				if (paths.indexOf("E") === -1) {
+					paths = paths + "E";
 				}
 				break;
 			case "S" :
-				if (walls.indexOf("S") === -1) {
-					walls = walls + "S";
+				if (paths.indexOf("S") === -1) {
+					paths = paths + "S";
 				}
 				break;
 			case "W" :
-				if (walls.indexOf("W") === -1) {
-					walls = walls + "W";
+				if (paths.indexOf("W") === -1) {
+					paths = paths + "W";
 				}
 				break;
 		}
 	} else {
 		switch(memMouseDir) {
-			case "N" : walls.replace("N", ""); break;
-			case "E" : walls.replace("E", ""); break;
-			case "S" : walls.replace("S", ""); break;
-			case "W" : walls.replace("W", ""); break;
+			case "N" : paths.replace("N", ""); break;
+			case "E" : paths.replace("E", ""); break;
+			case "S" : paths.replace("S", ""); break;
+			case "W" : paths.replace("W", ""); break;
 		}
 	}
-	memMazeWall[memMouseY][memMouseX] = walls;
+	memMazeWall[memMouseY][memMouseX] = paths;
 };
 }
 
-if (typeof mouse.memSetWallFwd !== 'function') {
-mouse.memSetWallFwd = function(setWall) {
-	var walls = memMazeWall[memMouseY][memMouseX];
+if (typeof mouse.memSetPathBack !== 'function') {
+mouse.memSetPathBack = function(setPath) {
+	var paths = memMazeWall[memMouseY][memMouseX];
 
-	if (setWall) {
+	if (setPath) {
 		switch(memMouseDir) {
 			case "N" :
-				if (walls.indexOf("S") === -1) {
-					walls = walls + "S";
+				if (paths.indexOf("S") === -1) {
+					paths = paths + "S";
 				}
 				break;
 			case "E" :
-				if (walls.indexOf("W") === -1) {
-					walls = walls + "W";
+				if (paths.indexOf("W") === -1) {
+					paths = paths + "W";
 				}
 				break;
 			case "S" :
-				if (walls.indexOf("N") === -1) {
-					walls = walls + "N";
+				if (paths.indexOf("N") === -1) {
+					paths = paths + "N";
 				}
 				break;
 			case "W" :
-				if (walls.indexOf("E") === -1) {
-					walls = walls + "E";
+				if (paths.indexOf("E") === -1) {
+					paths = paths + "E";
 				}
 				break;
 		}
 	} else {
 		switch(memMouseDir) {
-			case "N" : walls.replace("S", ""); break;
-			case "E" : walls.replace("W", ""); break;
-			case "S" : walls.replace("N", ""); break;
-			case "W" : walls.replace("E", ""); break;
+			case "N" : paths.replace("S", ""); break;
+			case "E" : paths.replace("W", ""); break;
+			case "S" : paths.replace("N", ""); break;
+			case "W" : paths.replace("E", ""); break;
 		}
 	}
-	memMazeWall[memMouseY][memMouseX] = walls;
+	memMazeWall[memMouseY][memMouseX] = paths;
 };
 }
 
-//memIsWallLeft(): 
+//memIsPathLeft(): 
 
-if (typeof mouse.memIsWallLeft !== 'function') {
-mouse.memIsWallLeft = function() {
+if (typeof mouse.memIsPathLeft !== 'function') {
+mouse.memIsPathLeft = function() {
 	var walls = memMazeWall[memMouseY][memMouseX];
 
 	switch(memMouseDir) {
@@ -685,9 +685,9 @@ mouse.memIsWallLeft = function() {
 };
 }
 
-//memIsWallRight(): 
-//memIsWallFwd(): 
-//memIsWallBack(): 
+//memIsPathRight(): 
+//memIsPathFwd(): 
+//memIsPathBack(): 
 //memSetValue(value): 
 //memSetValueLeft(value): 
 //memSetValueRight(value): 
