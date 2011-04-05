@@ -262,6 +262,12 @@ mouse.isOpenLeft = function() {
 };
 }
 
+if (typeof mouse.isWallLeft !== 'function') {
+mouse.isWallLeft = function() {
+	return !(mouse.isOpenLeft());
+};
+}
+
 if (typeof mouse.isOpenRight !== 'function') {
 mouse.isOpenRight = function() {
 	var goodDir = maze[cMouseY][cMouseX];
@@ -289,6 +295,12 @@ mouse.isOpenRight = function() {
 				break;
 		}
 		return true;
+};
+}
+
+if (typeof mouse.isWallRight !== 'function') {
+mouse.isWallRight = function() {
+	return !(mouse.isOpenRight());
 };
 }
 
@@ -322,6 +334,12 @@ mouse.isOpenFwd = function() {
 };
 }
 
+if (typeof mouse.isWallFwd !== 'function') {
+mouse.isWallFwd = function() {
+	return !(mouse.isOpenFwd());
+};
+}
+
 if (typeof mouse.isOpenBack !== 'function') {
 mouse.isOpenBack = function() {
 	var goodDir = maze[cMouseY][cMouseX];
@@ -349,6 +367,12 @@ mouse.isOpenBack = function() {
 				break;
 		}
 		return true;
+};
+}
+
+if (typeof mouse.isWallBack !== 'function') {
+mouse.isWallBack = function() {
+	return !(mouse.isOpenBack());
 };
 }
 
