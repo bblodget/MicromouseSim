@@ -45,7 +45,12 @@ var pHeight; // the height of the maze in pixels
 var pCellWidth; // width of a cell in pixels
 var pCellHeight;	// height of a cell in pixels
 var maze;		// data structure the reps the maze
-var mazeUserData;	// user data stored in the maze
+var memMazeValue;	// mouses memory of cell values
+var memMazeWall;	// mouses memory of the walls
+
+var memMouseX;		// mouse x pos in cells
+var memMouseY;		// mouse y pos in cells
+var memMouseDir; 	// "N", "E", "S", or "W"
 
 var cMouseX;	// mouse x pos in cells
 var cMouseY;	// mouse y pos in cells
@@ -113,7 +118,7 @@ mouse.newMaze = function(ss_button,maze_sel) {
 		mRadius = Math.floor(pCellWidth/2) - 5;
 	}
 
-	initMazeUserData();
+	memInit();
 	mouse.loadMaze(maze_sel);
 };
 }
@@ -149,6 +154,8 @@ mouse.fwd = function(cells) {
 	}
 	tpMouseX = cell2px();
 	tpMouseY = cell2py();
+	memMouseX = cMouseX;
+	memMouseY = cMouseY;
 };
 }
 
@@ -183,6 +190,8 @@ mouse.back = function(cells) {
 	}
 	tpMouseX = cell2px();
 	tpMouseY = cell2py();
+	memMouseX = cMouseX;
+	memMouseY = cMouseY;
 };
 }
 
@@ -206,6 +215,9 @@ mouse.right = function(turns) {
 				mouseDir = "N"; break;
 		}
 	}
+	//memMouseX = cMouseX;
+	//memMouseY = cMouseY;
+	memMouseDir = mouseDir;
 };
 }
 
@@ -229,11 +241,12 @@ mouse.left = function(turns) {
 				mouseDir = "S"; break;
 		}
 	}
+	memMouseDir = mouseDir;
 };
 }
 
-if (typeof mouse.isOpenLeft !== 'function') {
-mouse.isOpenLeft = function() {
+if (typeof mouse.isPathLeft !== 'function') {
+mouse.isPathLeft = function() {
 	var goodDir = maze[cMouseY][cMouseX];
 
 		switch (mouseDir) {
@@ -264,12 +277,12 @@ mouse.isOpenLeft = function() {
 
 if (typeof mouse.isWallLeft !== 'function') {
 mouse.isWallLeft = function() {
-	return !(mouse.isOpenLeft());
+	return !(mouse.isPathLeft());
 };
 }
 
-if (typeof mouse.isOpenRight !== 'function') {
-mouse.isOpenRight = function() {
+if (typeof mouse.isPathRight !== 'function') {
+mouse.isPathRight = function() {
 	var goodDir = maze[cMouseY][cMouseX];
 
 		switch (mouseDir) {
@@ -300,12 +313,12 @@ mouse.isOpenRight = function() {
 
 if (typeof mouse.isWallRight !== 'function') {
 mouse.isWallRight = function() {
-	return !(mouse.isOpenRight());
+	return !(mouse.isPathRight());
 };
 }
 
-if (typeof mouse.isOpenFwd !== 'function') {
-mouse.isOpenFwd = function() {
+if (typeof mouse.isPathFwd !== 'function') {
+mouse.isPathFwd = function() {
 	var goodDir = maze[cMouseY][cMouseX];
 
 		switch (mouseDir) {
@@ -336,12 +349,12 @@ mouse.isOpenFwd = function() {
 
 if (typeof mouse.isWallFwd !== 'function') {
 mouse.isWallFwd = function() {
-	return !(mouse.isOpenFwd());
+	return !(mouse.isPathFwd());
 };
 }
 
-if (typeof mouse.isOpenBack !== 'function') {
-mouse.isOpenBack = function() {
+if (typeof mouse.isPathBack !== 'function') {
+mouse.isPathBack = function() {
 	var goodDir = maze[cMouseY][cMouseX];
 
 		switch (mouseDir) {
@@ -372,7 +385,7 @@ mouse.isOpenBack = function() {
 
 if (typeof mouse.isWallBack !== 'function') {
 mouse.isWallBack = function() {
-	return !(mouse.isOpenBack());
+	return !(mouse.isPathBack());
 };
 }
 
@@ -405,7 +418,7 @@ mouse.step = function() {
 if (typeof mouse.loadDriver !== 'function') {
 mouse.loadDriver = function(driverp) {
 	driver = driverp;
-	initMazeUserData();
+	memInit();
 	if (driver.load) {
 		driver.load();
 	}
@@ -482,27 +495,236 @@ mouse.isGoal = function() {
 };
 }
 
+// Mouse memory functions
+
+if (typeof mouse.memSetWallLeft !== 'function') {
+mouse.memSetWallLeft = function(setWall) {
+	var walls = memMazeWall[memMouseY][memMouseX];
+
+	if (setWall) {
+		switch(memMouseDir) {
+			case "N" :
+				if (walls.indexOf("W") === -1) {
+					walls = walls + "W";
+				}
+				break;
+			case "E" :
+				if (walls.indexOf("N") === -1) {
+					walls = walls + "N";
+				}
+				break;
+			case "S" :
+				if (walls.indexOf("E") === -1) {
+					walls = walls + "E";
+				}
+				break;
+			case "W" :
+				if (walls.indexOf("S") === -1) {
+					walls = walls + "S";
+				}
+				break;
+		}
+	} else {
+		switch(memMouseDir) {
+			case "N" : walls.replace("W", ""); break;
+			case "E" : walls.replace("N", ""); break;
+			case "S" : walls.replace("E", ""); break;
+			case "W" : walls.replace("S", ""); break;
+		}
+	}
+	memMazeWall[memMouseY][memMouseX] = walls;
+};
+}
+
+if (typeof mouse.memSetWallRight !== 'function') {
+mouse.memSetWallRight = function(setWall) {
+	var walls = memMazeWall[memMouseY][memMouseX];
+
+	if (setWall) {
+		switch(memMouseDir) {
+			case "N" :
+				if (walls.indexOf("E") === -1) {
+					walls = walls + "E";
+				}
+				break;
+			case "E" :
+				if (walls.indexOf("S") === -1) {
+					walls = walls + "S";
+				}
+				break;
+			case "S" :
+				if (walls.indexOf("W") === -1) {
+					walls = walls + "W";
+				}
+				break;
+			case "W" :
+				if (walls.indexOf("N") === -1) {
+					walls = walls + "N";
+				}
+				break;
+		}
+	} else {
+		switch(memMouseDir) {
+			case "N" : walls.replace("E", ""); break;
+			case "E" : walls.replace("S", ""); break;
+			case "S" : walls.replace("W", ""); break;
+			case "W" : walls.replace("N", ""); break;
+		}
+	}
+	memMazeWall[memMouseY][memMouseX] = walls;
+};
+}
+
+if (typeof mouse.memSetWallFwd !== 'function') {
+mouse.memSetWallFwd = function(setWall) {
+	var walls = memMazeWall[memMouseY][memMouseX];
+
+	if (setWall) {
+		switch(memMouseDir) {
+			case "N" :
+				if (walls.indexOf("N") === -1) {
+					walls = walls + "N";
+				}
+				break;
+			case "E" :
+				if (walls.indexOf("E") === -1) {
+					walls = walls + "E";
+				}
+				break;
+			case "S" :
+				if (walls.indexOf("S") === -1) {
+					walls = walls + "S";
+				}
+				break;
+			case "W" :
+				if (walls.indexOf("W") === -1) {
+					walls = walls + "W";
+				}
+				break;
+		}
+	} else {
+		switch(memMouseDir) {
+			case "N" : walls.replace("N", ""); break;
+			case "E" : walls.replace("E", ""); break;
+			case "S" : walls.replace("S", ""); break;
+			case "W" : walls.replace("W", ""); break;
+		}
+	}
+	memMazeWall[memMouseY][memMouseX] = walls;
+};
+}
+
+if (typeof mouse.memSetWallFwd !== 'function') {
+mouse.memSetWallFwd = function(setWall) {
+	var walls = memMazeWall[memMouseY][memMouseX];
+
+	if (setWall) {
+		switch(memMouseDir) {
+			case "N" :
+				if (walls.indexOf("S") === -1) {
+					walls = walls + "S";
+				}
+				break;
+			case "E" :
+				if (walls.indexOf("W") === -1) {
+					walls = walls + "W";
+				}
+				break;
+			case "S" :
+				if (walls.indexOf("N") === -1) {
+					walls = walls + "N";
+				}
+				break;
+			case "W" :
+				if (walls.indexOf("E") === -1) {
+					walls = walls + "E";
+				}
+				break;
+		}
+	} else {
+		switch(memMouseDir) {
+			case "N" : walls.replace("S", ""); break;
+			case "E" : walls.replace("W", ""); break;
+			case "S" : walls.replace("N", ""); break;
+			case "W" : walls.replace("E", ""); break;
+		}
+	}
+	memMazeWall[memMouseY][memMouseX] = walls;
+};
+}
+
+//memIsWallLeft(): 
+
+if (typeof mouse.memIsWallLeft !== 'function') {
+mouse.memIsWallLeft = function() {
+	var walls = memMazeWall[memMouseY][memMouseX];
+
+	switch(memMouseDir) {
+		case "N" :
+			if (walls.indexOf("W") !== -1) {
+				return true;
+			}
+			break;
+		case "E" :
+			if (walls.indexOf("N") !== -1) {
+				return true;
+			}
+			break;
+		case "S" :
+			if (walls.indexOf("E") !== -1) {
+				return true;
+			}
+			break;
+		case "W" :
+			if (walls.indexOf("S") !== -1) {
+				return true;
+			}
+			break;
+	}
+	return false;
+};
+}
+
+//memIsWallRight(): 
+//memIsWallFwd(): 
+//memIsWallBack(): 
+//memSetValue(value): 
+//memSetValueLeft(value): 
+//memSetValueRight(value): 
+//memSetValueFwd(value): 
+//memSetValueBack(value): 
+//memGetValue(): 
+//memGetValueLeft(): 
+//memGetValueRight(): 
+//memGetValueFwd(): 
+//memGetValueBack(): 
+//memClearWalls(): 
+//memClearValues(): 
+//memClearAll(): 
+//memSetPosAt(x,y,heading):
+
+
 if (typeof mouse.setValue !== 'function') {
 mouse.setValue = function(x,y,value) {
-	mazeUserData[y][x] = value;
+	memMazeValue[y][x] = value;
 };
 }
 
 if (typeof mouse.value !== 'function') {
 mouse.value = function(x,y) {
-	return mazeUserData;
+	return memMazeValue;
 };
 }
 
 if (typeof mouse.setValueCurr !== 'function') {
 mouse.setValueCurr = function(value) {
-	mazeUserData[cMouseY][cMouseX] = value;
+	memMazeValue[cMouseY][cMouseX] = value;
 };
 }
 
 if (typeof mouse.valueCurr !== 'function') {
 mouse.valueCurr = function() {
-	return mazeUserData[cMouseY][cMouseX];
+	return memMazeValue[cMouseY][cMouseX];
 };
 }
 
@@ -519,7 +741,7 @@ mouse.valueLeft = function() {
 	if (x>=0 && x<cWidth &&
 	    y>=0 && y<cHeight) {
 
-		return mazeUserData[y][x];
+		return memMazeValue[y][x];
 	} else {
 		return outOfBounds; 
 	}
@@ -539,7 +761,7 @@ mouse.valueRight = function() {
 	if (x>=0 && x<cWidth &&
 	    y>=0 && y<cHeight) {
 
-		return mazeUserData[y][x];
+		return memMazeValue[y][x];
 	} else {
 		return outOfBounds; 
 	}
@@ -559,7 +781,7 @@ mouse.valueFwd = function() {
 	if (x>=0 && x<cWidth &&
 	    y>=0 && y<cHeight) {
 
-		return mazeUserData[y][x];
+		return memMazeValue[y][x];
 	} else {
 		return outOfBounds; 
 	}
@@ -579,7 +801,7 @@ mouse.valueBack = function() {
 	if (x>=0 && x<cWidth &&
 	    y>=0 && y<cHeight) {
 
-		return mazeUserData[y][x];
+		return memMazeValue[y][x];
 	} else {
 		return outOfBounds; 
 	}
@@ -602,7 +824,7 @@ mouse.setValueFlood = function() {
 	for (y=0;y<8;y++) {
 		val = row_start;
 		for (x=0;x<8;x++) {
-			mazeUserData[y][x] = val;
+			memMazeValue[y][x] = val;
 			str = str + val + " ";
 			val--;
 		}
@@ -617,7 +839,7 @@ mouse.setValueFlood = function() {
 	for (y=0;y<8;y++) {
 		val = row_start;
 		for (x=8;x<16;x++) {
-			mazeUserData[y][x] = val;
+			memMazeValue[y][x] = val;
 			str = str + val + " ";
 			val++;
 		}
@@ -632,7 +854,7 @@ mouse.setValueFlood = function() {
 	for (y=8;y<16;y++) {
 		val = row_start;
 		for (x=0;x<8;x++) {
-			mazeUserData[y][x] = val;
+			memMazeValue[y][x] = val;
 			str = str + val + " ";
 			val--;
 		}
@@ -647,7 +869,7 @@ mouse.setValueFlood = function() {
 	for (y=8;y<16;y++) {
 		val = row_start;
 		for (x=8;x<16;x++) {
-			mazeUserData[y][x] = val;
+			memMazeValue[y][x] = val;
 			str = str + val + " ";
 			val++;
 		}
@@ -886,15 +1108,21 @@ function setHomePosition() {
 	taMouseDir = head2angle();
 	turnDir = "N";
 	stepMode = false;
+	memMouseX = cMouseX;
+	memMouseY = cMouseY;
+	memMouseDir = mouseDir;
 }
 
-function initMazeUserData() {
+function memInit() {
 	var x, y;
-	mazeUserData = [];
+	memMazeValue = [];
+	memMazeWall = [];
 	for (y=0;y<cHeight;y++) {
-		mazeUserData[y] = [];
+		memMazeValue[y] = [];
+		memMazeWall[y] = [];
 		for (x=0;x<cWidth;x++) {
-			mazeUserData[y][x] = 0;
+			memMazeValue[y][x] = 0;
+			memMazeWall[y][x] = "";
 		}
 	}
 }

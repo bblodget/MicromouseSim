@@ -22,10 +22,10 @@ driver.next = function() {
    }
 
    // priority: right, fwd, left	
-   if (mouse.isOpenRight()) {
+   if (mouse.isPathRight()) {
       mouse.right();
       mouse.fwd();
-   } else if (mouse.isOpenFwd()) {
+   } else if (mouse.isPathFwd()) {
       mouse.fwd();
    } else {
       mouse.left();
