@@ -152,6 +152,40 @@ mouse.fwd = function(cells) {
 };
 }
 
+if (typeof mouse.back !== 'function') {
+mouse.back = function(cells) {
+	var num = cells || 1;
+	var i;
+
+	for (i=0; i<num; i++) {
+		switch (mouseDir) {
+			case "N" : 
+				if (maze[cMouseY][cMouseX].indexOf("S") !== -1) {
+					cMouseY = cMouseY + 1;
+				}
+				break;
+			case "E" : 
+				if (maze[cMouseY][cMouseX].indexOf("W") !== -1) {
+					cMouseX = cMouseX - 1; 
+				}
+				break;
+			case "S" : 
+				if (maze[cMouseY][cMouseX].indexOf("N") !== -1) {
+					cMouseY = cMouseY - 1;
+				}
+				break;
+			case "W" : 
+				if (maze[cMouseY][cMouseX].indexOf("E") !== -1) {
+					cMouseX = cMouseX + 1;
+				}
+				break;
+		}
+	}
+	tpMouseX = cell2px();
+	tpMouseY = cell2py();
+};
+}
+
 if (typeof mouse.right !== 'function') {
 mouse.right = function(turns) {
 	var num = turns || 1;
