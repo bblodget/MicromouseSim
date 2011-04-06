@@ -140,7 +140,6 @@ mouse.newMaze = function(ss_button,maze_sel) {
 	}
 
 	mouse.loadMaze(maze_sel);
-	mouse.memClear();
 };
 }
 
@@ -450,7 +449,7 @@ mouse.step = function() {
 if (typeof mouse.loadDriver !== 'function') {
 mouse.loadDriver = function(driverp) {
 	driver = driverp;
-	mouse.memClear();
+	mouse.memClear(); // clear the mouses memory.
 	if (driver.load) {
 		driver.load();
 	}
@@ -461,6 +460,9 @@ mouse.loadDriver = function(driverp) {
 if (typeof mouse.loadMaze !== 'function') {
 mouse.loadMaze = function(maze_sel) {
 	var maze_json = "mazes_json/" + maze_sel + ".json";
+
+	// clear the mouses memory
+	mouse.memClear();
 
 	// change menu selection
 	$("#maze_sel").val(maze_sel).attr('selected','selected');
@@ -1238,13 +1240,6 @@ function memUpdate() {
 						 cell[WEST]+" "+
 						 cell[VISIT]+" "+
 						 cell[DATA]+"\n");
-
-	console.log("rcell: "+rcell[NORTH]+" "+
-						 rcell[EAST]+" "+
-						 rcell[SOUTH]+" "+
-						 rcell[WEST]+" "+
-						 rcell[VISIT]+" "+
-						 rcell[DATA]+"\n");
 
 }
 
