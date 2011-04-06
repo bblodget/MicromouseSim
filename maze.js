@@ -1251,6 +1251,7 @@ function memUpdate() {
 		cell[back]=false;
 		if (bcell) {bcell[fwd]=false;}
 	}
+	/*
 	console.log("pos: "+memMouseX+" "+memMouseY+"\n");
 	console.log("cell: "+cell[NORTH]+" "+
 						 cell[EAST]+" "+
@@ -1258,6 +1259,7 @@ function memUpdate() {
 						 cell[WEST]+" "+
 						 cell[VISIT]+" "+
 						 cell[DATA]+"\n");
+	 */
 
 }
 

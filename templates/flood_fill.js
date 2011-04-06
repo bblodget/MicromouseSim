@@ -8,7 +8,6 @@ driver = {};
 driver.load = function() {
     // default maze
     mouse.loadMaze("91japa1");
-    mouse.memPrintMaze();
 }
 
 // Figure out next move.
@@ -25,7 +24,6 @@ driver.next = function() {
 
     // get the current flood values.
     mouse.memFlood();
-    mouse.memPrintMaze();
 
     if (mouse.isPathFwd() ) {
         lval = mouse.memGetDataFwd();
@@ -71,9 +69,6 @@ driver.next = function() {
             mouse.fwd();
             break;
     }
-
-    console.log("ldir: "+ldir);
-    console.log("lval: "+lval);
 
 }
 

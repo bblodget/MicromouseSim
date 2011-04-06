@@ -195,7 +195,6 @@ jQuery(function() {
 	//var last_opt = $('#maze_sel option:last').val();
 	var last_opt = $('#maze_sel option').size();
 	var rand_maze = Math.floor(Math.random()*last_opt+1)
-	console.log("rand_maze: "+rand_maze);
 	$("#maze_sel option").eq(rand_maze).attr('selected','selected');
 	var maze_sel = $('#maze_sel option:selected').val();
 
@@ -204,7 +203,6 @@ jQuery(function() {
 	// mouse.loadDriver(driver);
 
 	var maze_height = $("canvas#maze").height() + 8;
-	// console.log("maze_height: " + maze_height);
 	$("#driver_div").height(maze_height);
 
 });
