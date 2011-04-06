@@ -89,6 +89,18 @@ var DATA	= 5;
 
 /*
  ****************************************************
+ * Public Data structures
+ ****************************************************
+ */
+
+
+// public pointer to the mouses memory.
+if (typeof mouse.newMaze !== 'function') {
+mouse.memMaze = memMaze;
+}
+
+/*
+ ****************************************************
  * Public API Functions
  ****************************************************
  */
@@ -127,8 +139,8 @@ mouse.newMaze = function(ss_button,maze_sel) {
 		mRadius = Math.floor(pCellWidth/2) - 5;
 	}
 
-	mouse.memClear();
 	mouse.loadMaze(maze_sel);
+	mouse.memClear();
 };
 }
 
@@ -735,6 +747,47 @@ mouse.memClear = function() {
 };
 }
 
+//memPerfect(): Get a perfect memory of the maze.
+if (typeof mouse.memPerfect !== 'function') {
+mouse.memPerfect = function() {
+	var x, y;
+	memMaze = [];
+	for (y=0;y<cHeight;y++) {
+		memMaze[y] = [];
+		for (x=0;x<cWidth;x++) {
+			// [NORTH,EAST,SOUTH,WEST,VISIT,DATA]
+			memMaze[y][x] = [];
+			if (y===0) {
+				memMaze[y][x][NORTH] = false;  // wall north
+			} else { 
+				//memMaze[y][x][NORTH] = true;
+				memMaze[y][x][NORTH] = (maze[y][x].indexOf("N") !== -1);
+			}
+			if (y===cHeight-1) {
+				memMaze[y][x][SOUTH] = false; // wall south
+			} else { 
+				//memMaze[y][x][SOUTH] = true;
+				memMaze[y][x][SOUTH] = (maze[y][x].indexOf("S") !== -1);
+			}
+			if (x===0) {
+				memMaze[y][x][WEST] = false; // wall west
+			} else { 
+				//memMaze[y][x][WEST] = true;
+				memMaze[y][x][WEST] = (maze[y][x].indexOf("W") !== -1);
+			}
+			if (x===cWidth-1) {
+				memMaze[y][x][EAST] = false; // wall east
+			} else { 
+				//memMaze[y][x][EAST] = true;
+				memMaze[y][x][EAST] = (maze[y][x].indexOf("E") !== -1);
+			}
+			memMaze[y][x][VISIT] = false;
+			memMaze[y][x][DATA] = 0;
+		}
+	}
+};
+}
+
 //memSetPosAt(x,y,heading):
 if (typeof mouse.memSetPosAt !== 'function') {
 mouse.memSetPosAt = function(x,y,heading) {
@@ -800,14 +853,67 @@ mouse.memFlood = function() {
 		}
 	}
 
+};
+}
+
+// print the content of the mouse data memory.
+if (typeof mouse.memPrintData !== 'function') {
+mouse.memPrintData = function() {
+	var x,y;
+	var str="";
+	var d;
+
 	// print debugging info
 	str = "Flood values:\n";
 	for (y=0;y<cHeight;y++) {
 		for (x=0;x<cWidth;x++) {
-			str += memMaze[y][x][DATA] + " ";
+			d = memMaze[y][x][DATA];
+			if (d < 10) {
+				str += "  "+ memMaze[y][x][DATA] + " ";
+			} else if (d < 100) {
+				str += " "+ memMaze[y][x][DATA] + " ";
+			} else {
+				str += memMaze[y][x][DATA] + " ";
+			}
 		}
 		str = str + "\n";
 	}
+	console.log(str);
+};
+}
+
+// print the maze in the mouse's memory.
+if (typeof mouse.memPrintMaze !== 'function') {
+mouse.memPrintMaze = function() {
+	var x,y;
+	var str="";
+	var path;
+
+	// print debugging info
+	str = "Flood values:\n";
+	for (y=0;y<cHeight;y++) {
+		// print north wall
+		for (x=0;x<cWidth;x++) {
+			path = memMaze[y][x][NORTH];
+			if (path) {
+				str += "+ ";
+			} else {
+				str += "+-";
+			}
+		}
+		str += "+\n";
+		// print west wall
+		for (x=0;x<cWidth;x++) {
+			path = memMaze[y][x][WEST];
+			if (path) {
+				str += "  ";
+			} else {
+				str += "| ";
+			}
+		}
+		str += "|\n";
+	}
+	str += "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n";
 	console.log(str);
 };
 }
@@ -1048,6 +1154,9 @@ function setHomePosition() {
 function memUpdate() {
 	var cell = memMaze[memMouseY][memMouseX];
 	var fwd, right, back, left;
+
+	// FIXME:  Don't update for now
+	return;
 
 	cell[VISIT] = true;
 	switch (memMouseDir) {
