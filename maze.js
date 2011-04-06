@@ -523,8 +523,8 @@ mouse.home = function() {
 if (typeof mouse.isHome !== 'function') {
 mouse.isHome = function() {
 	if (cMouseX === 0 &&
-		cMouseY === 15 &&
-		mouseDir === "N") {
+		cMouseY === 15) { // &&
+		// mouseDir === "N") {
 
 		return true;
 	} else {
@@ -819,11 +819,14 @@ mouse.memSetPosAt = function(x,y,heading) {
 
 
 
-//memFlood(): Uses the walls in the mouse's memory to calculate 
+//memFlood(rev): Uses the walls in the mouse's memory to calculate 
 //how far each cell is from a destination square. 
 //The distances are stored in the cells value.
+//when rev==false then goal squares are the destination
+//when rev==true then home square is the destination
 if (typeof mouse.memFlood !== 'function') {
-mouse.memFlood = function() {
+mouse.memFlood = function(rev) {
+	var reverse = rev || false; // default not reverse
 	var x, y;
 	var level = 0;
 	var currentLevel = [];
@@ -841,7 +844,13 @@ mouse.memFlood = function() {
 	}
 
 	// put destination cells in currentLevel
-	currentLevel.push(Cell(7,7),Cell(8,7),Cell(7,8),Cell(8,8));
+	if (reverse) {
+		// home square
+		currentLevel.push(Cell(0,15));
+	} else {
+		// goal squares
+		currentLevel.push(Cell(7,7),Cell(8,7),Cell(7,8),Cell(8,8));
+	}
 
 	while(!done) {
 		while(currentLevel.length>0) {
