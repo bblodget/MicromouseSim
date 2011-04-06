@@ -1153,10 +1153,12 @@ function setHomePosition() {
 // update the mouses memory of this cell.
 function memUpdate() {
 	var cell = memMaze[memMouseY][memMouseX];
+	var lcell, rcell, fcell, bcell; // neighbor cells
 	var fwd, right, back, left;
+	var off;
 
 	// FIXME:  Don't update for now
-	return;
+	//return;
 
 	cell[VISIT] = true;
 	switch (memMouseDir) {
@@ -1166,10 +1168,83 @@ function memUpdate() {
 		case "W" : fwd=WEST; right=NORTH; back=EAST; left=SOUTH; break;
 	}
 
-	if (mouse.isPathLeft()) {cell[left]=true;} else {cell[left]=false;}
-	if (mouse.isPathRight()) {cell[right]=true;} else {cell[right]=false;}
-	if (mouse.isPathFwd()) {cell[fwd]=true;} else {cell[fwd]=false;}
-	if (mouse.isPathBack()) {cell[back]=true;} else {cell[back]=false;}
+	// left cell
+	off = left2Offset(memMouseDir);
+	if (memMouseY+off.y >= 0 && memMouseY+off.y < cHeight &&
+		memMouseX+off.x >= 0 && memMouseX+off.x < cWidth) {
+		lcell = memMaze[memMouseY+off.y][memMouseX+off.x];
+	}
+
+	// right cell
+	off = right2Offset(memMouseDir);
+	if (memMouseY+off.y >= 0 && memMouseY+off.y < cHeight &&
+		memMouseX+off.x >= 0 && memMouseX+off.x < cWidth) {
+		rcell = memMaze[memMouseY+off.y][memMouseX+off.x];
+	}
+
+	// fwd cell
+	off = fwd2Offset(memMouseDir);
+	if (memMouseY+off.y >= 0 && memMouseY+off.y < cHeight &&
+		memMouseX+off.x >= 0 && memMouseX+off.x < cWidth) {
+		fcell = memMaze[memMouseY+off.y][memMouseX+off.x];
+	}
+
+	// back cell
+	off = back2Offset(memMouseDir);
+	if (memMouseY+off.y >= 0 && memMouseY+off.y < cHeight &&
+		memMouseX+off.x >= 0 && memMouseX+off.x < cWidth) {
+		bcell = memMaze[memMouseY+off.y][memMouseX+off.x];
+	}
+
+	// left path
+	if (mouse.isPathLeft()) {
+		cell[left]=true;
+		if (lcell) {lcell[right]=true;}
+	} else {
+		cell[left]=false;
+		if (lcell) {lcell[right]=false;}
+	}
+
+	// right path
+	if (mouse.isPathRight()) {
+		cell[right]=true;
+		if (rcell) {rcell[left]=true;}
+	} else {
+		cell[right]=false;
+		if (rcell) {rcell[left]=false;}
+	}
+
+	// fwd path
+	if (mouse.isPathFwd()) {
+		cell[fwd]=true;
+		if (fcell) {fcell[back]=true;}
+	} else {
+		cell[fwd]=false;
+		if (fcell) {fcell[back]=false;}
+	}
+
+	// back path
+	if (mouse.isPathBack()) {
+		cell[back]=true;
+		if (bcell) {bcell[fwd]=true;}
+	} else {
+		cell[back]=false;
+		if (bcell) {bcell[fwd]=false;}
+	}
+	console.log("pos: "+memMouseX+" "+memMouseY+"\n");
+	console.log("cell: "+cell[NORTH]+" "+
+						 cell[EAST]+" "+
+						 cell[SOUTH]+" "+
+						 cell[WEST]+" "+
+						 cell[VISIT]+" "+
+						 cell[DATA]+"\n");
+
+	console.log("rcell: "+rcell[NORTH]+" "+
+						 rcell[EAST]+" "+
+						 rcell[SOUTH]+" "+
+						 rcell[WEST]+" "+
+						 rcell[VISIT]+" "+
+						 rcell[DATA]+"\n");
 
 }
 
