@@ -66,6 +66,7 @@ var mRadius;	// mouse radius.
 var turnDir;	// "R"ight, "L"eft, "N"one.
 
 var driver;		// user code that drives the mouse
+var maze_sel;	// text id of currently selected maze.
 var running;	// boolean. True if mouse is running
 var timer_id;	// id of the running timer.
 
@@ -95,9 +96,9 @@ var DATA	= 5;
 
 
 // public pointer to the mouses memory.
-if (typeof mouse.newMaze !== 'function') {
-mouse.memMaze = memMaze;
-}
+//if (typeof mouse.newMaze !== 'function') {
+//mouse.memMaze = memMaze;
+//}
 
 /*
  ****************************************************
@@ -446,32 +447,47 @@ mouse.step = function() {
 };
 }
 
+// returns true on success else false
 if (typeof mouse.loadDriver !== 'function') {
 mouse.loadDriver = function(driverp) {
 	driver = driverp;
-	mouse.memClear(); // clear the mouses memory.
-	if (driver.load) {
-		driver.load();
+
+	// make sure a maze is loaded.
+	if (maze_sel && maze_sel !== "loading") {
+
+		if (driver.load) {
+			driver.load();
+		}
+		mouse.home();
+		mouse.memClear(); // clear the mouses memory.
+
+		return true;
+	} else {
+		return false;
 	}
-	mouse.home();
 };
 }
 
 if (typeof mouse.loadMaze !== 'function') {
-mouse.loadMaze = function(maze_sel) {
-	var maze_json = "mazes_json/" + maze_sel + ".json";
+mouse.loadMaze = function(maze_selp) {
+	var maze_json = "mazes_json/" + maze_selp + ".json";
 
-	// clear the mouses memory
-	mouse.memClear();
+	maze_sel = "loading";
 
 	// change menu selection
-	$("#maze_sel").val(maze_sel).attr('selected','selected');
+	$("#maze_sel").val(maze_selp).attr('selected','selected');
 
 	$.getJSON(maze_json, function(json) {
+		maze_sel = maze_selp;
 		maze = json;
 		drawMaze();
 		drawMouse();
+
+		// clear the mouses memory
+		mouse.home();
+		mouse.memClear();
 	});
+
 
 };
 }
@@ -746,6 +762,8 @@ mouse.memClear = function() {
 			memMaze[y][x][DATA] = 0;
 		}
 	}
+	// We should look at and record the cell we are in.
+	memUpdate();
 };
 }
 
