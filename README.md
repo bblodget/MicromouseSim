@@ -8,9 +8,9 @@ for controlling a simulated mouse running in a simulated maze.
 You can type your mouse driver code directly in a textbox on the
 web page.
 
-There is a large number of mazes to test your mouse algorithm
-in.  These mazes are mazes that have been used in Micromouse
-competitions.  The source of these mazes are
+There are a large number of mazes to test your mouse algorithm
+.  These mazes have been used in Micromouse competitions.  The
+source of these mazes are
 
 [http://www.tcp4me.com/mmr/mazes/](http://www.tcp4me.com/mmr/mazes/)
 
@@ -42,7 +42,7 @@ Download
 
 You can download the latest source via
 
-command(git clone git@github.com:bblodget/MicroMouseSim.git)
+	git clone git@github.com:bblodget/MicroMouseSim.git
 
 License
 -------
