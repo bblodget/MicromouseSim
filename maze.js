@@ -822,11 +822,11 @@ mouse.memSetPosAt = function(x,y,heading) {
 //memFlood(rev): Uses the walls in the mouse's memory to calculate 
 //how far each cell is from a destination square. 
 //The distances are stored in the cells value.
-//when rev==false then goal squares are the destination
-//when rev==true then home square is the destination
+//when goGoal==true then goal squares are the destination
+//when goGoal==false then home square is the destination
 if (typeof mouse.memFlood !== 'function') {
-mouse.memFlood = function(rev) {
-	var reverse = rev || false; // default not reverse
+mouse.memFlood = function(goGoalp) {
+	var goGoal = goGoalp;
 	var x, y;
 	var level = 0;
 	var currentLevel = [];
@@ -836,6 +836,10 @@ mouse.memFlood = function(rev) {
 	var done = false;
 	var str="";
 
+	if (goGoalp === undefined) {
+		goGoal = true;  // the default
+	} 
+
 	// Set all data values to 255.
 	for (y=0;y<cHeight;y++) {
 		for (x=0;x<cWidth;x++) {
@@ -844,12 +848,12 @@ mouse.memFlood = function(rev) {
 	}
 
 	// put destination cells in currentLevel
-	if (reverse) {
-		// home square
-		currentLevel.push(Cell(0,15));
-	} else {
+	if (goGoal) {
 		// goal squares
 		currentLevel.push(Cell(7,7),Cell(8,7),Cell(7,8),Cell(8,8));
+	} else {
+		// home square
+		currentLevel.push(Cell(0,15));
 	}
 
 	while(!done) {

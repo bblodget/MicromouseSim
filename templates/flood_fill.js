@@ -3,16 +3,15 @@
 // clear the driver object.
 driver = {};
 
-// boolean to keep track of goint to goal
-// or going home.
-driver.reverse;
+// boolean. TRUE = go to goal.  FALSE = go home
+driver.goGoal;
 
 // Gets called only when downloaded to the mouse
 // Performs initialization
 driver.load = function() {
     // default maze
     mouse.loadMaze("91japa1");
-    driver.reverse = false;
+    driver.goGoal = true;
 }
 
 // Figure out next move.
@@ -21,20 +20,20 @@ driver.next = function() {
     var lval = 255;
     var ldir;
 
-    if (mouse.isGoal() && !driver.reverse) {
+    if (mouse.isGoal() && driver.goGoal) {
         mouse.stop();
         alert("Center Reached! Press start to go home.");
-        driver.reverse = !driver.reverse;
+        driver.goGoal = !driver.goGoal;
     }
 
-    if (mouse.isHome() && driver.reverse) {
+    if (mouse.isHome() && !driver.goGoal) {
         mouse.stop();
         alert("Home Reached! Press start to run again.");
-        driver.reverse = !driver.reverse;
+        driver.goGoal = !driver.goGoal;
     }
 
     // get the current flood values.
-    mouse.memFlood(driver.reverse);
+    mouse.memFlood(driver.goGoal);
 
     if (mouse.isPathFwd() ) {
         lval = mouse.memGetDataFwd();
