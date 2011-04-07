@@ -3,7 +3,7 @@ A HTML5 Micromouse simulator
 
 This web app can be used to test Micromouse algorithms in your
 web browser.  It exposes a [JavaScript Mouse
-API](https://github.com/bblodget/MicroMouseSim/wiki/Mouse-API)
+API](https://github.com/bblodget/MicromouseSim/wiki/Mouse-API)
 for controlling a simulated mouse running in a simulated maze.
 You can type your mouse driver code directly in a textbox on the
 web page.
@@ -42,9 +42,9 @@ Download and run locally
 
 You can download the latest source via
 
-	git clone https://bblodget@github.com/bblodget/MicroMouseSim.git
+	git clone https://bblodget@github.com/bblodget/MicromouseSim.git
 
-Open the file MicroMouseSim/index.html in Firefox or Safari.
+Open the file MicromouseSim/index.html in Firefox or Safari.
 Chrome's security model won't allow this application run
 locally only from a web server.
 
