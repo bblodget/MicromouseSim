@@ -15,7 +15,7 @@ driver.load = function() {
 // Gets called each iteration of the simulator.
 driver.next = function() {
     if (mouse.isGoal()) {
-        alert("Goal Reached!");
+        alert("Center Reached!\nMoves: "+mouse.moveCount());
         mouse.stop();
         return;
     }

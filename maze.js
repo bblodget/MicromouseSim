@@ -74,6 +74,8 @@ var stepMode;	// true if we are in stepping mode.
 
 var ssButton;	// the start stop button
 
+var moveCount;	// number of moves from start square
+
 // constants
 var turnAmount = 10;	// speed at which the mouse turns
 var incAmount = 5;		// speed at which the mouse move
@@ -149,6 +151,9 @@ mouse.fwd = function(cells) {
 	var num = cells || 1;
 	var i;
 
+	if (mouse.isHome()) {moveCount=0;}
+	moveCount += num;
+
 	for (i=0; i<num; i++) {
 		switch (mouseDir) {
 			case "N" : 
@@ -189,6 +194,9 @@ mouse.back = function(cells) {
 	var num = cells || 1;
 	var i;
 
+	if (mouse.isHome()) {moveCount=0;}
+	moveCount += num;
+
 	for (i=0; i<num; i++) {
 		switch (mouseDir) {
 			case "N" : 
@@ -228,6 +236,9 @@ mouse.right = function(turns) {
 	var num = turns || 1;
 	var i;
 
+	if (mouse.isHome()) {moveCount=0;}
+	moveCount += num;
+
 	turnDir = "R";
 	taMouseDir = taMouseDir + (90*num);
 
@@ -254,6 +265,9 @@ if (typeof mouse.left !== 'function') {
 mouse.left = function(turns) {
 	var num = turns || 1;
 	var i;
+
+	if (mouse.isHome()) {moveCount=0;}
+	moveCount += num;
 
 	turnDir = "L";
 	taMouseDir = taMouseDir - (90*num);
@@ -447,6 +461,13 @@ mouse.step = function() {
 };
 }
 
+// number of moves made since last at home.
+if (typeof mouse.moveCount !== 'function') {
+mouse.moveCount = function() {
+	return moveCount;
+};
+}
+
 // returns true on success else false
 if (typeof mouse.loadDriver !== 'function') {
 mouse.loadDriver = function(driverp) {
@@ -517,6 +538,7 @@ mouse.home = function() {
 	setHomePosition();
 	clearTimer();
 	drawMouse();
+	moveCount = 0;
 };
 }
 

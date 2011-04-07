@@ -22,7 +22,8 @@ driver.next = function() {
 
     if (mouse.isGoal() && driver.goGoal) {
         mouse.stop();
-        alert("Center Reached! Press start to go home.");
+        alert("Center Reached! Moves: "+mouse.moveCount()+
+            "\nPress start to go home.");
         driver.goGoal = !driver.goGoal;
     }
 
