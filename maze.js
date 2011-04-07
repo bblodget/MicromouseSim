@@ -5,16 +5,31 @@
  * Author: <brandon.blodget@gmail.com>
  *
  * Copyright 2011 Brandon Blodget.  
- * All rights reserved.
  *
  * This script defines an API for drawing a
  * MicroMouse maze and controlling a mouse
  * inside the generated maze.
  * It requires an html5 capable web browser.
  *
+ * License:
+ * 
+ * This file is part of "MicroMouseSim"
+ *
+ * "MicroMouseSim" is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * "MicroMouseSim" is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with "MicroMouseSim".  If not, see <http://www.gnu.org/licenses/>.
+ *
  ****************************************************
  */
-
 
 // The MicroMouse object.  This is the only variable
 // we export to the global namespace.  The API is
