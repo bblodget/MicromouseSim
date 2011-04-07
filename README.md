@@ -42,7 +42,7 @@ Download
 
 You can download the latest source via
 
-	git clone git@github.com:bblodget/MicroMouseSim.git
+	git clone https://bblodget@github.com/bblodget/MicroMouseSim.git
 
 License
 -------
