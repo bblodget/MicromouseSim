@@ -37,12 +37,16 @@ Online Demo
 
 There is an online demo running at ...
 
-Download
---------
+Download and run locally
+------------------------
 
 You can download the latest source via
 
 	git clone https://bblodget@github.com/bblodget/MicroMouseSim.git
+
+Open the file MicroMouseSim/index.html in Firefox or Safari.
+Chrome's security model won't allow this application run
+locally only from a web server.
 
 License
 -------
