@@ -32,7 +32,7 @@
 <span class="heading">Maze</span>
 
 <div class="select">
-<label for="maze_sel">Select Maze (<a href="http://www.tcp4me.com/mmr/mazes/">source url</a>)</label>
+<label for="maze_sel">(<a href="http://www.tcp4me.com/mmr/mazes/">source url</a>)</label>
 <select name="maze_sel" id="maze_sel">
   <option value="00japan">00japan</option>
   <option value="1stworld">1stworld</option>
@@ -111,19 +111,19 @@
 <canvas id="maze" width="512" height="512"> </canvas>
 
 <div id="maze_controls_div">
-<button id = "home" type="button">Home</button>
-<button id = "start_stop" type="button">Start</button>
-<button id = "step" type="button">Step</button>
+<button id = "home" type="button" disabled="disabled">Home</button>
+<button id = "start_stop" type="button" disabled="disabled">Start</button>
+<button id = "step" type="button" disabled="disabled">Step</button>
 </div>
 </form>
 </div>
 
 <div id="driver_div">
 <form>
-<span class="heading">Mouse Algorithm</span>
+<span class="heading">Algorithm</span>
 
 <div class="select">
-<label for="driver_sel">Select Template (<a href="https://github.com/bblodget/MicromouseSim/wiki/Mouse-API">Mouse API</a>)</label>
+<label for="driver_sel">(<a href="https://github.com/bblodget/MicromouseSim/wiki/Mouse-API">Mouse API</a>)</label>
 <select name="driver_sel" id="driver_sel">
   <option value="right_wall">Right Wall Follower</option>
   <option value="left_wall">Left Wall Follower</option>
@@ -155,6 +155,9 @@ jQuery(function() {
 	$('#driver_code').change(
 		function(event) {
 			$("#download").html("*Download and Reset Mouse");
+			$("#home").attr("disabled","disabled");
+			$("#start_stop").attr("disabled","disabled");
+			$("#step").attr("disabled","disabled");
 		}
 	);
 
@@ -164,6 +167,9 @@ jQuery(function() {
 			jQuery.globalEval(code);
 			mouse.loadDriver(driver);
 			$("#download").html("Download and Reset Mouse");
+			$("#home").attr("disabled","");
+			$("#start_stop").attr("disabled","");
+			$("#step").attr("disabled","");
 		}
 	);
 
@@ -194,11 +200,19 @@ jQuery(function() {
 
 			// mouse.loadDriver(driver);
 			$("#download").html("*Download and Reset Mouse");
+			$("#home").attr("disabled","disabled");
+			$("#start_stop").attr("disabled","disabled");
+			$("#step").attr("disabled","disabled");
 		}
 	);
 
 	$('#step').click(mouse.step);
 	$('#home').click(mouse.home);
+
+	// value on page load
+	$("#home").attr("disabled","disabled");
+	$("#start_stop").attr("disabled","disabled");
+	$("#step").attr("disabled","disabled");
 
 	// load driver code from template
 	var template_file = "templates/" + 

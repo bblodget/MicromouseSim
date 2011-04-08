@@ -35,7 +35,9 @@ debugging.
 Online Demo
 -----------
 
-There is an online demo running at ...
+There is an online demo running at 
+
+[http://bblodget.github.com/MicromouseSim](http://bblodget.github.com/MicromouseSim)
 
 Download and run locally
 ------------------------
