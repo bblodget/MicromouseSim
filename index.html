@@ -1,0 +1,212 @@
+<html>
+
+<head>
+	<title>Micromouse Simulator</title>
+
+	<link rel="stylesheet" href="main.css" type="text/css">
+</head>
+
+
+<body>
+
+<h2>Micromouse Simulator <a class="small_link" href="https://github.com/bblodget">Source on GitHub</a></h2>
+
+
+<div id="maze_div">
+<form>
+<span class="heading">Maze</span>
+
+<div class="select">
+<label for="maze_sel">Select Maze (<a href="http://www.tcp4me.com/mmr/mazes/">source url</a>)</label>
+<select name="maze_sel" id="maze_sel">
+  <option value="00japan">00japan</option>
+  <option value="1stworld">1stworld</option>
+  <option value="80japx">80japx</option>
+  <option value="81japx">81japx</option>
+  <option value="82japx">82japx</option>
+  <option value="82us">82us</option>
+  <option value="82japx">82japx</option>
+  <option value="83japx">83japx</option>
+  <option value="83us">83us</option>
+  <option value="84japx">84japx</option>
+  <option value="85japx">85japx</option>
+  <option value="85usa">85usa</option>
+  <option value="86">86</option>
+  <option value="86chi">86chi</option>
+  <option value="86jap">86jap</option>
+  <option value="86japx">86japx</option>
+  <option value="87iee">87iee</option>
+  <option value="87jap">87jap</option>
+  <option value="87japx">87japx</option>
+  <option value="87sin">87sin</option>
+  <option value="87us1">87us1</option>
+  <option value="88iee">88iee</option>
+  <option value="88jap">88jap</option>
+  <option value="88japx">88japx</option>
+  <option value="88lon">88lon</option>
+  <option value="88mtl">88mtl</option>
+  <option value="88sin">88sin</option>
+  <option value="88us">88us</option>
+  <option value="89ape">89ape</option>
+  <option value="89iee">89iee</option>
+  <option value="89japa1">89japa1</option>
+  <option value="89japa2">89japa2</option>
+  <option value="89japx">89japx</option>
+  <option value="89lon">89lon</option>
+  <option value="89lonq">89lonq</option>
+  <option value="89sina1">89sina1</option>
+  <option value="90japx">90japx</option>
+  <option value="90lon">90lon</option>
+  <option value="90lonq">90lonq</option>
+  <option value="90tor">90tor</option>
+  <option value="91hon">91hon</option>
+  <option value="91japa1">91japa1</option>
+  <option value="91japq">91japq</option>
+  <option value="91japx">91japx</option>
+  <option value="91lon">91lon</option>
+  <option value="91tor">91tor</option>
+  <option value="92bos">92bos</option>
+  <option value="92japx">92japx</option>
+  <option value="92lon">92lon</option>
+  <option value="92lonq">92lonq</option>
+  <option value="93apec">93apec</option>
+  <option value="93japx">93japx</option>
+  <option value="94beam1">94beam1</option>
+  <option value="94beam2">94beam2</option>
+  <option value="94japan">94japan</option>
+  <option value="94japx">94japx</option>
+  <option value="95japx">95japx</option>
+  <option value="96japx">96japx</option>
+  <option value="97japx">97japx</option>
+  <option value="j1">j1</option>
+  <option value="j2">j2</option>
+  <option value="j3">j3</option>
+  <option value="j4">j4</option>
+  <option value="j5">j5</option>
+  <option value="j6">j6</option>
+  <option value="loop">loop</option>
+  <option value="museum">museum</option>
+  <option value="test1">test1</option>
+  <option value="zigzag">zigzag</option>
+  <option value="blank">blank</option>
+  <option value="west_wall">west_wall</option>
+</select>
+</div>
+
+<canvas id="maze" width="512" height="512"> </canvas>
+
+<div id="maze_controls_div">
+<button id = "home" type="button">Home</button>
+<button id = "start_stop" type="button">Start</button>
+<button id = "step" type="button">Step</button>
+</div>
+</form>
+</div>
+
+<div id="driver_div">
+<form>
+<span class="heading">Mouse Algorithm</span>
+
+<div class="select">
+<label for="driver_sel">Select Template (<a href="https://github.com/bblodget/MicromouseSim/wiki/Mouse-API">Mouse API</a>)</label>
+<select name="driver_sel" id="driver_sel">
+  <option value="right_wall">Right Wall Follower</option>
+  <option value="left_wall">Left Wall Follower</option>
+  <option value="flood_fill">Flood Fill</option>
+</select>
+</div>
+
+<textarea id="driver_code" rows=30> 
+</textarea>
+
+<div id="code_controls_div">
+<button id="download" type="button">*Download and Reset Mouse</button>
+</div>
+
+</form>
+
+</div>
+
+
+
+</body>
+
+<script type="text/javascript" src="jquery-1.5.2.min.js"></script>
+<script type="text/javascript" src="maze.js"></script>
+
+<script type="text/javascript">
+jQuery(function() {
+
+	$('#driver_code').change(
+		function(event) {
+			$("#download").html("*Download and Reset Mouse");
+		}
+	);
+
+	$('#download').click(
+		function(event) {
+			var code = $("#driver_code").val();
+			jQuery.globalEval(code);
+			mouse.loadDriver(driver);
+			$("#download").html("Download and Reset Mouse");
+		}
+	);
+
+	$('#start_stop').click(
+		function(event) {
+			if ($('#start_stop').html() === 'Start') {
+				mouse.start();
+				$('#start_stop').html('Stop');
+
+			} else {
+				mouse.stop();
+				$('#start_stop').html('Start');
+			}
+		}
+	);
+
+	$('#maze_sel').change(
+		function(event) {
+			mouse.loadMaze($('#maze_sel option:selected').text());
+		}
+	);
+
+	$('#driver_sel').change(
+		function(event) {
+			var template_file = "templates/" + 
+				$('#driver_sel option:selected').val() + ".js";
+			$('#driver_code').load(template_file);
+
+			// mouse.loadDriver(driver);
+			$("#download").html("*Download and Reset Mouse");
+		}
+	);
+
+	$('#step').click(mouse.step);
+	$('#home').click(mouse.home);
+
+	// load driver code from template
+	var template_file = "templates/" + 
+		$('#driver_sel option:selected').val() + ".js";
+	$('#driver_code').load(template_file);
+
+	// select random maze
+	//var last_opt = $('#maze_sel option:last').val();
+	var last_opt = $('#maze_sel option').size();
+	var rand_maze = Math.floor(Math.random()*last_opt+1)
+	$("#maze_sel option").eq(rand_maze).attr('selected','selected');
+	var maze_sel = $('#maze_sel option:selected').val();
+
+
+	mouse.newMaze($('#start_stop'),maze_sel);
+	// mouse.loadDriver(driver);
+
+	var maze_height = $("canvas#maze").height() + 8;
+	$("#driver_div").height(maze_height);
+
+});
+</script>
+
+
+
+</html>

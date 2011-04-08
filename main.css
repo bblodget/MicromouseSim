@@ -1,0 +1,53 @@
+
+.small_link {
+	font-weight: normal;
+	font-size: .5em;
+	float:right;
+}
+
+.heading {
+	font-weight: bold;
+	font-size: 20;
+	float:left;
+}
+
+.select {
+	float:right;
+}
+
+canvas#maze {
+	border : inset;
+	width: 100%;
+}
+
+#maze_div {
+	// border:4px solid#dfd;
+	float:left;
+	width: 48%
+}
+
+#driver_div {
+	// border:4px solid#dfd;
+	float:right;
+	width: 48%;
+}
+
+#driver_code {
+	width: 100%;
+	height: 100%;
+}
+
+
+#maze_controls_div {
+	float:none;
+	text-align: center;
+	padding: 20px;
+}
+
+#code_controls_div {
+	float:none;
+	text-align: center;
+	padding: 20px;
+}
+
+
