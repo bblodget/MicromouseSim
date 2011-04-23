@@ -20,6 +20,7 @@
 <label for="maze_sel">(<a href="http://www.tcp4me.com/mmr/mazes/">source url</a>)</label>
 <select name="maze_sel" id="maze_sel">
   <option value="00japan">00japan</option>
+  <option value="11rbgames">11rbgames</option>
   <option value="1stworld">1stworld</option>
   <option value="80japx">80japx</option>
   <option value="81japx">81japx</option>
@@ -112,7 +113,7 @@
 <select name="driver_sel" id="driver_sel">
   <option value="right_wall">Right Wall Follower</option>
   <option value="left_wall">Left Wall Follower</option>
-  <option value="flood_fill">Flood Fill</option>
+  <option value="flood_fill" selected="selected">Flood Fill</option>
 </select>
 </div>
 
@@ -181,7 +182,15 @@ jQuery(function() {
 		function(event) {
 			var template_file = "templates/" + 
 				$('#driver_sel option:selected').val() + ".js";
+			/* This code is not working in Firefox 4
+			 * does not update textarea if textarea has been modified.
 			$('#driver_code').load(template_file);
+			*/
+			// so we change to this version
+			$.get(template_file, function(data) {
+			  $('#driver_code').val(data);
+			},"html");
+			
 
 			// mouse.loadDriver(driver);
 			$("#download").html("*Download and Reset Mouse");
