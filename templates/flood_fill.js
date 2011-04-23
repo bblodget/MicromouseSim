@@ -10,7 +10,7 @@ driver.goGoal;
 // Performs initialization
 driver.load = function() {
     // default maze
-    mouse.loadMaze("91japa1");
+    //mouse.loadMaze("91japa1");
     driver.goGoal = true;
 }
 
