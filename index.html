@@ -112,8 +112,9 @@
 <canvas id="maze" width="512" height="512"> </canvas>
 
 <div id="maze_controls_div">
+<button id = "reset" type="button" disabled="disabled">Reset</button>
 <button id = "home" type="button" disabled="disabled">Home</button>
-<button id = "start_stop" type="button" disabled="disabled">Start</button>
+<button id = "start_stop" type="button">Download</button>
 <button id = "step" type="button" disabled="disabled">Step</button>
 </div>
 </form>
@@ -136,7 +137,9 @@
 </textarea>
 
 <div id="code_controls_div">
+<!--
 <button id="download" type="button">*Download and Reset Mouse</button>
+-->
 </div>
 
 </form>
@@ -155,13 +158,16 @@ jQuery(function() {
 
 	$('#driver_code').change(
 		function(event) {
-			$("#download").html("*Download and Reset Mouse");
+			//$("#download").html("*Download and Reset Mouse");
+			$("#start_stop").html("Download");
+			$("#start_stop").attr("disabled","");
 			$("#home").attr("disabled","disabled");
-			$("#start_stop").attr("disabled","disabled");
 			$("#step").attr("disabled","disabled");
+			$("#reset").attr("disabled","disabled");
 		}
 	);
 
+	/*
 	$('#download').click(
 		function(event) {
 			var code = $("#driver_code").val();
@@ -173,9 +179,22 @@ jQuery(function() {
 			$("#step").attr("disabled","");
 		}
 	);
+	*/
 
 	$('#start_stop').click(
 		function(event) {
+			var code = $("#driver_code").val();
+			if ($('#start_stop').html() === 'Download') {
+				jQuery.globalEval(code);
+				mouse.loadDriver(driver);
+				$("#download").html("Download and Reset Mouse");
+				$("#home").attr("disabled","");
+				$("#start_stop").attr("disabled","");
+				$("#step").attr("disabled","");
+				$("#reset").attr("disabled","");
+				$('#start_stop').html('Start');
+				return;
+			}
 			if ($('#start_stop').html() === 'Start') {
 				mouse.start();
 				$('#start_stop').html('Stop');
@@ -208,20 +227,24 @@ jQuery(function() {
 			
 
 			// mouse.loadDriver(driver);
-			$("#download").html("*Download and Reset Mouse");
+			//$("#download").html("*Download and Reset Mouse");
+			$("#start_stop").html("Download");
+			$("#start_stop").attr("disabled","");
 			$("#home").attr("disabled","disabled");
-			$("#start_stop").attr("disabled","disabled");
 			$("#step").attr("disabled","disabled");
+			$("#reset").attr("disabled","disabled");
 		}
 	);
 
 	$('#step').click(mouse.step);
 	$('#home').click(mouse.home);
+	$('#reset').click(mouse.reset);
 
 	// value on page load
 	$("#home").attr("disabled","disabled");
-	$("#start_stop").attr("disabled","disabled");
+	//$("#start_stop").attr("disabled","disabled");
 	$("#step").attr("disabled","disabled");
+	$("#reset").attr("disabled","disabled");
 
 	// load driver code from template
 	var template_file = "templates/" + 
@@ -246,5 +269,5 @@ jQuery(function() {
 </script>
 
 
-
 </html>
+

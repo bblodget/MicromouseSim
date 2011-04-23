@@ -130,7 +130,8 @@ var DATA	= 5;
 if (typeof mouse.newMaze !== 'function') {
 mouse.newMaze = function(ss_button,maze_sel) {
 	ssButton = ss_button;
-	setRunning(false);
+	//setRunning(false);
+	running = false;
 
 
 	// default maze size is 16x16 cells
@@ -483,6 +484,14 @@ mouse.moveCount = function() {
 };
 }
 
+// Resets mouse memory and returns it home.
+if (typeof mouse.reset !== 'function') {
+mouse.reset = function() {
+	mouse.home();
+	mouse.memClear();
+};
+}
+
 // returns true on success else false
 if (typeof mouse.loadDriver !== 'function') {
 mouse.loadDriver = function(driverp) {
@@ -494,8 +503,9 @@ mouse.loadDriver = function(driverp) {
 		if (driver.load) {
 			driver.load();
 		}
-		mouse.home();
-		mouse.memClear(); // clear the mouses memory.
+		//mouse.home();
+		//mouse.memClear(); // clear the mouses memory.
+		mouse.reset();
 
 		return true;
 	} else {
