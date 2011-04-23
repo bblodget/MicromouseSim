@@ -487,6 +487,11 @@ mouse.moveCount = function() {
 // Resets mouse memory and returns it home.
 if (typeof mouse.reset !== 'function') {
 mouse.reset = function() {
+
+	if (driver.load) {
+		driver.load();
+	}
+
 	mouse.home();
 	mouse.memClear();
 };
@@ -500,9 +505,11 @@ mouse.loadDriver = function(driverp) {
 	// make sure a maze is loaded.
 	if (maze_sel && maze_sel !== "loading") {
 
+		/*
 		if (driver.load) {
 			driver.load();
 		}
+		*/
 		//mouse.home();
 		//mouse.memClear(); // clear the mouses memory.
 		mouse.reset();
