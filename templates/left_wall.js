@@ -8,7 +8,7 @@ driver = {};
 driver.load = function() {
     // Switches to a maze that can be solved
     // using wall following.
-    mouse.loadMaze("91japa1");
+    //mouse.loadMaze("91japa1");
 }
 
 // Figure out next move.
