@@ -59,6 +59,7 @@ var pWidth;	// the width of maze in pixels
 var pHeight; // the height of the maze in pixels
 var pCellWidth; // width of a cell in pixels
 var pCellHeight;	// height of a cell in pixels
+var speed;		// the number of steps it takes to move one cell
 var maze;		// data structure the reps the maze
 var memMaze;	// the mouses memory of the maze.
 //var memMazeValue;	// mouses memory of cell values
@@ -146,6 +147,8 @@ mouse.newMaze = function(ss_button,maze_sel) {
 
 	pCellWidth = pWidth/cWidth;
 	pCellHeight = pHeight/cHeight;
+
+	mouse.setSpeed(10);
 
 	// init mouse starting mostion
 	// bottom left square
@@ -494,6 +497,18 @@ mouse.reset = function() {
 
 	mouse.home();
 	mouse.memClear();
+};
+}
+
+// Sets the mouses speed.
+// Indicates number of steps required to move
+// one cell.
+// 1 is fastest.
+if (typeof mouse.setSpeed !== 'function') {
+mouse.setSpeed = function(speedp) {
+	speed = speedp;
+	incAmount = pCellWidth/speed;
+	turnAmount = 90/speed;
 };
 }
 

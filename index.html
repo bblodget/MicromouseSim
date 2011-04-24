@@ -3,6 +3,7 @@
 <head>
 	<title>Micromouse Simulator</title>
 
+	<link type="text/css" href="jquery-ui-1.8.12.custom.css" rel="stylesheet" />	
 	<link rel="stylesheet" href="main.css" type="text/css">
 
 	<script type="text/javascript">
@@ -117,6 +118,11 @@
 <button id = "start_stop" type="button">Download</button>
 <button id = "step" type="button" disabled="disabled">Step</button>
 </div>
+
+<div id="slider_right">
+Speed <div id="slider"></div>
+</div>
+
 </form>
 </div>
 
@@ -151,6 +157,7 @@
 </body>
 
 <script type="text/javascript" src="jquery-1.5.2.min.js"></script>
+<script type="text/javascript" src="jquery-ui-1.8.12.custom.min.js"></script>
 <script type="text/javascript" src="maze.js"></script>
 
 <script type="text/javascript">
@@ -235,6 +242,22 @@ jQuery(function() {
 			$("#reset").attr("disabled","disabled");
 		}
 	);
+
+	// Slider
+	/*
+	$('#slider').slider({
+		range: true,
+		values: [17, 67]
+	});
+	*/
+	$('#slider').slider({
+		min:1, 
+		max:12,
+		value: 6,
+		slide: function(event, info) {
+			mouse.setSpeed(16-info.value);
+		}
+	});
 
 	$('#step').click(mouse.step);
 	$('#home').click(mouse.home);
